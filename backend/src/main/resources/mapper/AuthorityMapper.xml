@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.mapper.AuthorityMapper">
+
+    <resultMap id="BaseResultMap" type="com.backend.pojo.Authority">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="admin" column="admin" jdbcType="TINYINT"/>
+            <result property="salesperson" column="salesperson" jdbcType="TINYINT"/>
+            <result property="storageperson" column="storageperson" jdbcType="TINYINT"/>
+            <result property="inventoryperson" column="inventoryperson" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,password,admin,
+        salesperson,storageperson,inventoryperson
+    </sql>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.MainController">
+    <children>
+        <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+
+                <Tab text="货物查询">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="tableViewListStock" prefHeight="362.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="name" prefWidth="75.0" text="商品名" />
+                                        <TableColumn fx:id="reserveNow" prefWidth="75.0" text="当前数量" />
+                                        <TableColumn fx:id="reserveMin" prefWidth="75.0" text="最小数量" />
+                                        <TableColumn fx:id="price" prefWidth="75.0" text="价格" />
+                                        <TableColumn fx:id="vendor"  prefWidth="75.0" text="制造商" />
+                                        <TableColumn fx:id="introduction" prefWidth="145.0" text="介绍" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="Untitled Tab">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

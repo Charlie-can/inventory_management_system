@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.mapper.ListSalesMapper">
+
+    <resultMap id="BaseResultMap" type="com.backend.pojo.ListSales">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="stockId" column="stock_id" jdbcType="INTEGER"/>
+            <result property="saleTime" column="sale_time" jdbcType="TIMESTAMP"/>
+            <result property="salePrice" column="sale_price" jdbcType="DOUBLE"/>
+            <result property="saleVolume" column="sale_volume" jdbcType="INTEGER"/>
+            <result property="saleEmployeeId" column="sale_employee_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,stock_id,sale_time,
+        sale_price,sale_volume,sale_employee_id
+    </sql>
+</mapper>
