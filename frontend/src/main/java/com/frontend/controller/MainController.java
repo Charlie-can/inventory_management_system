@@ -1,70 +1,78 @@
 package com.frontend.controller;
 
-import com.frontend.entity.ListStock;
-import javafx.collections.FXCollections;
-import javafx.event.Event;
+import com.frontend.Application;
+import com.frontend.entity.UserInfoReceiveData;
+import com.frontend.model.MainDisplayModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 
 public class MainController {
 
-    @FXML
-    public void onLogin(Event event) {System.out.println("hello");
-    }
-
-
 
     @FXML
-    private TableView<ListStock> tableViewListStock;
-
-
-    @FXML
-    private TableColumn<ListStock, Integer> id;
+    VBox VboxTableInfo;
 
     @FXML
-    private TableColumn<ListStock, String> name;
-
-    @FXML
-    private TableColumn<ListStock, Integer> reserveNow;
-
-    @FXML
-    private TableColumn<ListStock, Integer> reserveMin;
-
-    @FXML
-    private TableColumn<ListStock, Double> price;
-
-    @FXML
-    private TableColumn<ListStock, String> vendor;
-
-    @FXML
-    private TableColumn<ListStock, String> introduction;
+    private VBox VboxLabel;
 
 
     public void initialize() {
-        List<ListStock>  listStocks = new ArrayList<>();
 
-        ListStock listStock1 = new ListStock(1001,"测试",202,100,5.0,"test","testTestTest");
-        ListStock listStock2 = new ListStock(1002,"测试2",202,100,5.0,"test","testTestTest");
-        listStocks.add(listStock1);
-        listStocks.add(listStock2);
+        //共享MainControllerFXML控件
+        Application.shareController.put(getClass().getSimpleName(), this);
+
+        //放置全局共享用户信息
+        Application.userInfoReceiveData = MainDisplayModel.getUserInfo();
 
 
+        UserInfoReceiveData.Data.UserInfo userInfo = new UserInfoReceiveData.Data.UserInfo();
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        reserveNow.setCellValueFactory(new PropertyValueFactory<>("reserveNow"));
-        reserveMin.setCellValueFactory(new PropertyValueFactory<>("reserveMin"));
-        price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        vendor.setCellValueFactory(new PropertyValueFactory<>("vendor"));
-        introduction.setCellValueFactory(new PropertyValueFactory<>("introduction"));
+        userInfo = Application.userInfoReceiveData.getData().getUserInfo();
 
-        tableViewListStock.setItems(FXCollections.observableList(listStocks));
+        System.out.println(Application.userInfoReceiveData);
+
+
+        loadVboxLabel("view/ProductsLabel.fxml");
+
+
+        if (userInfo.getSalesperson() == 1) {
+
+            loadVboxLabel("view/ProductsSalesLabel.fxml");
+
+        }
+
+        if (userInfo.getInventoryperson() == 1) {
+            loadVboxLabel("view/ProductsInventoryLabel.fxml");
+        }
+
+        if (userInfo.getStorageperson() == 1) {
+            loadVboxLabel("view/ProductsStorageLabel.fxml");
+        }
+
+        if (userInfo.getAdmin() == 1) {
+            loadVboxLabel("view/UserManagementLabel.fxml");
+        }
+
+        loadVboxLabel("view/PersonalInformationLabel.fxml");
+
+
     }
+
+    private void loadVboxLabel(String labelViewPath) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(labelViewPath));
+
+            Parent element = fxmlLoader.load();
+
+            VboxLabel.getChildren().add(element);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
 
 }

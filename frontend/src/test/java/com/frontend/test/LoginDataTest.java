@@ -1,4 +1,4 @@
-package com.frontend;
+package com.frontend.test;
 
 import lombok.Data;
 

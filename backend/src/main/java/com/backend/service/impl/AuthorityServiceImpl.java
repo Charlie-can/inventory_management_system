@@ -7,24 +7,18 @@ import com.backend.utils.JwtHelper;
 import com.backend.utils.MD5Util;
 import com.backend.utils.Result;
 import com.backend.utils.ResultCodeEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.backend.pojo.Authority;
 import com.backend.service.AuthorityService;
 import com.backend.mapper.AuthorityMapper;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author charlie
- * @description 针对表【authority】的数据库操作Service实现
- * @createDate 2024-04-23 21:40:43
- */
+
 @Service
 public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority>
         implements AuthorityService {
@@ -91,7 +85,7 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
         Map<String, AuthorAndEmployess> authorAndEmployessMap = new HashMap<>();
 
-//        authorAndEmployessMap.put("data", authorAndEmployess);
+        authorAndEmployessMap.put("UserInfo", authorAndEmployess);
 
         return Result.ok(authorAndEmployessMap);
     }

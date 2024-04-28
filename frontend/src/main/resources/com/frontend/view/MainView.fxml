@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1050.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.MainController">
+    <children>
+
+
+        <VBox fx:id="VboxLabel" prefHeight="400.0" prefWidth="150.0" style="-fx-background-color: #E1E1E1;">
+            <children>
+
+            </children>
+        </VBox>
+
+        <VBox fx:id="VboxTableInfo" prefHeight="500.0" prefWidth="900.0" />
+    </children>
+</HBox>
