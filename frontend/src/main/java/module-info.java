@@ -6,6 +6,7 @@ module com.frontend {
     requires org.apache.httpcomponents.httpcore;
     requires lombok;
     requires com.fasterxml.jackson.dataformat.yaml;
+    requires org.jetbrains.annotations;
 
     opens com.frontend to javafx.fxml;
     exports com.frontend;

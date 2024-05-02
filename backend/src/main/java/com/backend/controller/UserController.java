@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping("/getUserInfo")
     public Result getUserToken(@RequestHeader String token) {
 
-        System.out.println(token);
+//        System.out.println(token);
         Result result = authorityService.getUserInfo(token);
 
         return result;

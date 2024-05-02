@@ -1,6 +1,7 @@
 package com.backend.service;
 
 import com.backend.pojo.ListStock;
+import com.backend.utils.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ListStockService extends IService<ListStock> {
 
+     Result getAllStock(String token);
+
+    Result queryStocks( String token,String type, String value);
 }

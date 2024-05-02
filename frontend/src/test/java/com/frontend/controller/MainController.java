@@ -1,6 +1,6 @@
 package com.frontend.controller;
 
-import com.frontend.entity.ListStock;
+import com.frontend.entity.ProductsList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -15,41 +15,41 @@ public class MainController {
 
 
     @FXML
-    private TableView<ListStock> tableViewListStock;
+    private TableView<ProductsList> tableViewListStock;
 
 
     @FXML
-    private TableColumn<ListStock, Integer> id;
+    private TableColumn<ProductsList, Integer> id;
 
     @FXML
-    private TableColumn<ListStock, String> name;
+    private TableColumn<ProductsList, String> name;
 
     @FXML
-    private TableColumn<ListStock, Integer> reserveNow;
+    private TableColumn<ProductsList, Integer> reserveNow;
 
     @FXML
-    private TableColumn<ListStock, Integer> reserveMin;
+    private TableColumn<ProductsList, Integer> reserveMin;
 
     @FXML
-    private TableColumn<ListStock, Double> price;
+    private TableColumn<ProductsList, Double> price;
 
     @FXML
-    private TableColumn<ListStock, String> vendor;
+    private TableColumn<ProductsList, String> vendor;
 
     @FXML
-    private TableColumn<ListStock, String> introduction;
+    private TableColumn<ProductsList, String> introduction;
 
 
 
     public void initialize() {
 
 
-        List<ListStock>  listStocks = new ArrayList<>();
-
-        ListStock listStock1 = new ListStock(1001,"测试",202,100,5.0,"test","testTestTest");
-        ListStock listStock2 = new ListStock(1002,"测试2",202,100,5.0,"test","testTestTest");
-        listStocks.add(listStock1);
-        listStocks.add(listStock2);
+        List<ProductsList> productsLists = new ArrayList<>();
+//
+//        ProductsList productsList1 = new ProductsList(1001,"测试",202,100,5.0,"test","testTestTest");
+//        ProductsList productsList2 = new ProductsList(1002,"测试2",202,100,5.0,"test","testTestTest");
+//        productsLists.add(productsList1);
+//        productsLists.add(productsList2);
 
 
 
@@ -61,7 +61,8 @@ public class MainController {
         vendor.setCellValueFactory(new PropertyValueFactory<>("vendor"));
         introduction.setCellValueFactory(new PropertyValueFactory<>("introduction"));
 
-        tableViewListStock.setItems(FXCollections.observableList(listStocks));
+
+        tableViewListStock.setItems(FXCollections.observableList(productsLists));
     }
 
 }

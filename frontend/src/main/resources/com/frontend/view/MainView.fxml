@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1050.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.MainController">
     <children>
@@ -13,6 +15,13 @@
             </children>
         </VBox>
 
-        <VBox fx:id="VboxTableInfo" prefHeight="500.0" prefWidth="900.0" />
+        <VBox fx:id="VboxTableInfo" alignment="CENTER" prefHeight="500.0" prefWidth="900.0">
+         <children>
+            <Label text="未打开标签栏，请在左侧选择">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children></VBox>
     </children>
 </HBox>

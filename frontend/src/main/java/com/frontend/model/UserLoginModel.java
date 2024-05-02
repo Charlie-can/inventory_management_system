@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,31 +42,22 @@ public class UserLoginModel {
             //接受请求
             request.setEntity(new StringEntity(JsBody));
 
-            // 发送请求并获取响应
+
             HttpResponse response = httpClient.execute(request);
 
-            // 读取响应内容
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line;
-            StringBuilder result = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
+            String responseBody = EntityUtils.toString(response.getEntity());
 
-            LoginReceiveData loginReceiveData = objectMapper.readValue(result.toString(), LoginReceiveData.class);
 
-//            System.out.println("Response: " + result);
+             //            System.out.println("Response: " + result);
 //            System.out.println("loginTest: " + loginReceiveData);
 
 
-                return loginReceiveData;
+                return objectMapper.readValue(responseBody, LoginReceiveData.class);
 
 
             // 打印响应内容
 
         } catch (HttpHostConnectException e) {
-//            e.printStackTrace();
-//            System.out.println("网络错误");
             LoginReceiveData loginReceiveData1 = new LoginReceiveData();
             loginReceiveData1.setCode(HTTPStatusEnums.Not_Connected_Server.getCode());
             return loginReceiveData1;

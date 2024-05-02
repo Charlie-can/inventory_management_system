@@ -27,11 +27,7 @@ public class MainController {
         Application.userInfoReceiveData = MainDisplayModel.getUserInfo();
 
 
-        UserInfoReceiveData.Data.UserInfo userInfo = new UserInfoReceiveData.Data.UserInfo();
-
-        userInfo = Application.userInfoReceiveData.getData().getUserInfo();
-
-        System.out.println(Application.userInfoReceiveData);
+        UserInfoReceiveData.Data.UserInfo userInfo = Application.userInfoReceiveData.getData().getUserInfo();
 
 
         loadVboxLabel("view/ProductsLabel.fxml");
