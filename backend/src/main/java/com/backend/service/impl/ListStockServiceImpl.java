@@ -57,13 +57,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
         }
 
 
-        if (!(Objects.equals(type, "id") ||
-                Objects.equals(type, "name") ||
-                Objects.equals(type, "reserve_now") ||
-                Objects.equals(type, "reserve_min") ||
-                Objects.equals(type, "price") ||
-                Objects.equals(type, "vendor") ||
-                Objects.equals(type, "Introduction"))) {
+        if (!Arrays.asList("id", "name", "reserve_now", "reserve_min", "price", "vendor", "Introduction").contains(type)) {
             return Result.build(null, ResultCodeEnum.USERINPUT_ERROR);
         }
 
@@ -74,13 +68,68 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
 
         List<ListStock> listStocks = listStockMapper.selectList(objectQueryWrapper);
 
-        System.out.println(listStocks);
         Map<String, List> stringListStockMap = new HashMap<>();
 
         stringListStockMap.put("stockList", listStocks);
 
 
         return Result.ok(stringListStockMap);
+    }
+
+    @Override
+    public Result deleteStocks(String token, Map<String, List<Integer>> idList) {
+
+        boolean expiration = jwtHelper.isExpiration(token);
+
+        if (expiration) {
+            return Result.build(null, ResultCodeEnum.NOTLOGIN);
+        }
+
+        int deleteNumber = listStockMapper.deleteBatchIds(idList.get("idList"));
+
+        if(deleteNumber==0){
+            return Result.build("not delete stock",ResultCodeEnum.DELETE_EMPTY);
+        } else if (deleteNumber<idList.get("idList").size()) {
+         return Result.build("not all are delete",ResultCodeEnum.DELETE_NOT_ALL);
+        }else{
+            return Result.ok("Delete Successful");
+        }
+    }
+
+    @Override
+    public Result insertStock(String token, ListStock stock) {
+
+        boolean expiration = jwtHelper.isExpiration(token);
+
+        if (expiration) {
+            return Result.build(null, ResultCodeEnum.NOTLOGIN);
+        }
+
+        try {
+            listStockMapper.insert(stock);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.build("Insert Error", ResultCodeEnum.INSERT_ERROR);
+        }
+
+        return Result.ok("Insert Successful");
+    }
+
+    @Override
+    public Result updateStock(String token, ListStock stock) {
+
+        boolean expiration = jwtHelper.isExpiration(token);
+
+        if (expiration) {
+            return Result.build(null, ResultCodeEnum.NOTLOGIN);
+        }
+
+        if (listStockMapper.updateById(stock) > 0) {
+            return Result.ok("Update Successful");
+        }
+        return Result.build("Update Empty", ResultCodeEnum.UPDATE_ERROR);
+
     }
 }
 

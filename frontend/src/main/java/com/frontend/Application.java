@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Application extends javafx.application.Application {
-    static private Stage mainStage;
+    static public Stage mainStage;
 
     //应用配置
     static public APPConfigEntity appConfigEntity;
@@ -41,9 +41,6 @@ public class Application extends javafx.application.Application {
         mainStage = stage;
         mainStage.setResizable(false);
         changeView("view/LoginView.fxml");
-//        changeView("view/MainView.fxml");
-//        changeView("view/MainView.fxml");
-
         mainStage.setTitle("进销存管理系统");
 
     }

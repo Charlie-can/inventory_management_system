@@ -10,7 +10,16 @@ public enum ResultCodeEnum {
     PASSWORD_ERROR(503, "passwordError"),
     NOTLOGIN(504, "notLogin"),
     USERNAME_USED(505, "userNameUsed"),
-    USERINPUT_ERROR(506, "parameterError");
+    USERINPUT_ERROR(506, "parameterError"),
+    INSERT_ERROR(507, "InsertParameterError"),
+    DELETE_EMPTY(508, "DeleteEmpty"),
+
+    DELETE_NOT_ALL(509, "DeleteNotAll"),
+
+    UPDATE_ERROR(511, "UpdateEmpty");
+
+
+
 
 
     private Integer code;

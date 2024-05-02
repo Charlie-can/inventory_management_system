@@ -6,18 +6,24 @@ import com.frontend.entity.ProductsListSelected;
 import com.frontend.entity.ProductsReceiveData;
 import com.frontend.model.ProductsModel;
 import com.frontend.utils.PopupWindow;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -35,6 +41,9 @@ public class ProductsController {
     public Button addBut;
     @FXML
     public Button delBut;
+
+    @FXML
+    public Button saveBut;
 
     @FXML
     private ComboBox<String> productsComboBox;
@@ -70,8 +79,10 @@ public class ProductsController {
 
     private MainController mainController;
 
-
+    //当前正在修改的行
     private Integer editeColumn;
+
+
     //在转换类型之前做一个回滚备份
     private Number beforeToString;
 
@@ -79,6 +90,7 @@ public class ProductsController {
     public void OnProductsLabelClicked() {
 
         try {
+
             mainController.VboxTableInfo.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/ProductsTableView.fxml"));
 
@@ -140,12 +152,24 @@ public class ProductsController {
 
     @FXML
     public void onAddButtonClicked() {
-        ProductsListSelected focusedItem = productsTableView.getFocusModel().getFocusedItem();
-        System.out.println("id" + focusedItem.getId());
+        Stage productsSubWindows = new Stage();
 
-        System.out.println("name" + focusedItem.getName());
+        Scene scene;
+        try {
+            scene = new Scene(new FXMLLoader(Application.class.getResource("view/ProductsSubWindow.fxml")).load());
 
-        System.out.println("isSelected" + focusedItem.isSelected());
+            productsSubWindows.setTitle("添加单元格");
+            productsSubWindows.initOwner(Application.mainStage);
+            productsSubWindows.initModality(Modality.WINDOW_MODAL);
+
+            productsSubWindows.setScene(scene);
+            productsSubWindows.setResizable(false);
+            productsSubWindows.show();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -154,6 +178,15 @@ public class ProductsController {
             System.out.println(" ");
     }
 
+    @FXML
+    public void onSaveButtonClicked() {
+        if (editeColumn != null) {
+            System.out.println("save");
+            editeColumn = null;
+        }else{
+            PopupWindow.alertWindow("没有未保存的单元");
+        }
+    }
 
     @FXML
     private void onCheckColumnCheckBoxClicked() {
@@ -201,7 +234,11 @@ public class ProductsController {
 
 
     public void initialize() {
+
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
+        Application.shareController.put(ProductsController.class.getSimpleName(),this);
+
+
         if (productsComboBox != null) {
             productsComboBox.getItems().addAll("编号", "商品名", "当前库存", "最低库存", "价格", "制造商", "商品描述");
             productsComboBox.setValue("编号");
@@ -249,7 +286,7 @@ public class ProductsController {
                 }
             };
 
-            StringConverter<Object> objectToSting  = new StringConverter<>() {
+            StringConverter<Object> objectToSting = new StringConverter<>() {
 
 
                 @Override
@@ -263,211 +300,91 @@ public class ProductsController {
                 }
             };
 
-            Callback<TableColumn<ProductsListSelected, String>, TableCell<ProductsListSelected, String>> callBackCellFactory =
-                    new Callback<TableColumn<ProductsListSelected, String>, TableCell<ProductsListSelected, String>>() {
+            Callback<TableColumn<ProductsListSelected, String>, TableCell<ProductsListSelected, String>> stringTextFieldCallBack = new Callback<>() {
+                @Override
+                public TextFieldTableCell<ProductsListSelected, String> call(TableColumn<ProductsListSelected, String> param) {
+
+                    return new TextFieldTableCell(objectToSting) {
+                        @Override
+                        public void startEdit() {
+
+                            System.out.println("startEdit");
+
+                            if (editeColumn != null && getIndex() == editeColumn) {
+                                super.startEdit();
+                            }
+                        }
+                    };
+                }
+            };
+
+            Callback<TableColumn<ProductsListSelected, Number>, TableCell<ProductsListSelected, Number>> numberTextFieldCallBack = new Callback<>() {
+                @Override
+                public TextFieldTableCell<ProductsListSelected, Number> call(TableColumn<ProductsListSelected, Number> param) {
+
+                    return new TextFieldTableCell(numberToString) {
+                        @Override
+                        public void startEdit() {
+
+                            System.out.println("startEdit");
+
+                            if (editeColumn != null && getIndex() == editeColumn) {
+                                super.startEdit();
+                            }
+                        }
+                    };
+                }
+            };
+
+            Callback<TableColumn<ProductsListSelected, Double>, TableCell<ProductsListSelected, Double>> doubleTextFieldCallBack = new Callback<>() {
+                @Override
+                public TextFieldTableCell<ProductsListSelected, Double> call(TableColumn<ProductsListSelected, Double> param) {
+
+                    return new TextFieldTableCell(doubleToString) {
+                        @Override
+                        public void startEdit() {
+
+                            System.out.println("startEdit");
+
+                            if (editeColumn != null && getIndex() == editeColumn) {
+                                super.startEdit();
+                            }
+                        }
+                    };
+                }
+            };
+
+            Callback<TableColumn<ProductsListSelected, Boolean>, TableCell<ProductsListSelected, Boolean>> checkBoxCallBack = new Callback<>() {
+                @Override
+                public CheckBoxTableCell<ProductsListSelected, Boolean> call(TableColumn<ProductsListSelected, Boolean> param) {
+
+                    return new CheckBoxTableCell<ProductsListSelected, Boolean>() {
 
                         @Override
-                        public TextFieldTableCell<ProductsListSelected, String> call(TableColumn<ProductsListSelected, String> parme) {
+                        public void updateItem(Boolean item, boolean empty) {
 
+                            if (item != null) {
+                                if (editeColumn != null) {
+                                    PopupWindow.alertWindow("有未保存的编辑，请保存后再选择其他单元格");
 
-                            return new TextFieldTableCell(objectToSting)
-                            {
-                                private void createEditor() {
-//                            System.out.println(getItem());
-                                    TextField textField = new TextField(getText());
+                                    setSelect(getIndex(), false);
 
+                                    System.out.println(item + " " + empty);
 
-//                            textField.setOnAction(event -> {
-//                                commitEdit(textField.getText());
-//
-//                            });
-                                    textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-                                        System.out.println("observable");
-                                        System.out.println(observable);
-
-                                        if (!newValue) {
-                                            setGraphic(null);
-
-                                            setContentDisplay(ContentDisplay.LEFT);
-
-                                            setText(textField.getText());
-
-                                            System.out.println(productsTableView.getFocusModel().getFocusedCell().getColumn());
-
-                                            System.out.println(getText());
-                                        } else {
-                                            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                                        }
-
-                                    });
-
-                                    setGraphic(textField);
-                                    textField.requestFocus();
-                                    System.out.println("setTextField");
-
-//                            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//                            textField.selectAll();
+                                    return;
                                 }
-
-
-//                                @Override
-//                                public void updateItem(String item, boolean empty) {
-//                                    System.out.println("update Item");
-//                                    super.updateItem(item, empty);
-////                                    if (empty || item == null) {
-////                                        setText(null);
-////                                    } else {
-////                                        setText(item);
-////                                    }
-//                                }
-
-                                @Override
-                                public void  updateItem(Object o,boolean empty){
-                                    System.out.println("update Item");
-                                    super.updateItem( o, empty);
-
-
-                                }
-
-                                @Override
-                                public void startEdit() {
-
-                                    System.out.println("startEdit");
-
-                                    if(getIndex() == editeColumn){
-
-                                    super.startEdit();
-
-
-                                    }
-
-//                                    super.startEdit();
-
-//                                    System.out.println("getGraphic" + getGraphic());
-////                            setEditable(true);
-//                                    setGraphic(null);
-//                                    createEditor();
-//
-////                            if (!isEmpty()) {
-////                                // 只允许某一行可编辑，其他行不可编辑
-////                                if (getIndex() == 2) {
-////                            setEditable(true);
-//
-////                                    createEditor();
-////
-////                                } else {
-////                                    setEditable(false);
-////                                }
-////                            }
-                                }
-
-                                @Override
-                                public void cancelEdit() {
-                                    System.out.println("cancel Edit");
-                                    super.cancelEdit();
-//                            System.out.println("isEditing"+isEditing());
-
-//                            setEditable(false);
-//                            if (isEditing()) {
-//                                Label label = new Label(getItem());
-////
-////                                setGraphic(label);
-//                                setGraphic(label);
-//
-//                            }
-                                }
-
-//                                @Override
-//                                public void commitEdit(String value) {
-//                                    super.commitEdit(value);
-//                                    System.out.println("commitEdit:" + value);
-//                                    System.out.println("isEditing" + isEditing());
-//                                    System.out.println(getIndex());
-//                                }
-
-
-                            };
+                                System.out.println(getIndex());
+                                System.out.println(item);
+                            }
+                            super.updateItem(item, empty);
 
 
                         }
 
-
                     };
+                }
+            };
 
-//            Callback<TableColumn<ProductsListSelected, Boolean>, TableCell<ProductsListSelected, Boolean>> checkBoxCallBackCellFactory =
-//                    new Callback<TableColumn<ProductsListSelected, Boolean>, TableCell<ProductsListSelected, Boolean>>() {
-//
-//
-//                        @Override
-//                        public TableCell<ProductsListSelected, Boolean> call(TableColumn<ProductsListSelected, Boolean> productsListBooleanTableColumn) {
-//
-//
-//                            return new CheckBoxTableCell<>() {
-//
-//                                @Override
-//                                public void updateItem(Boolean item, boolean empty) {
-//                                    System.out.println("CheckBoxTableCell update");
-//                                    setEditable(true);
-//                                    super.updateItem(item, empty);
-//
-////                                    System.out.println("CheckBoxTableCell update");
-//
-//                                }
-//
-//                                ;
-////
-////                            checkBoxTableCell.addEventFilter(MouseEvent.MOUSE_CLICKED,event->{
-////                                System.out.println(checkBoxTableCell.getItem());
-////                                checkBoxTableCell.setItem(true);
-////                                ObservableList<ProductsListSelected> productsTableViewItems = productsTableView.getItems();
-////                                System.out.println(productsTableViewItems);
-////                                System.out.println("clicked");
-////                                System.out.println(checkColumn.getCellData(0));
-////                                System.out.println("checkColumn"+checkColumn.getText());
-////                            });
-////
-////                            return checkBoxTableCell;
-////                            return new TableCell<>() {
-////                                private final CheckBox checkBox = new CheckBox();
-////
-////                                {
-////
-////
-////                                    checkBox.setOnMouseClicked(event -> {
-////
-////                                        System.out.println(productsListBooleanTableColumn.getColumns());
-////
-////
-//////                                        System.out.println(checkBox);
-////
-////
-//////                                        System.out.println(productsTableView.getRowFactory());
-//////                                        System.out.println(productsTableView.getColumns());
-//////                                        ObservableList<TableColumn<ProductsListSelected, ?>> tableColumns = productsTableView.getColumns();
-//////                                        System.out.println(tableColumns.get(0).getColumns());
-//////                                        System.out.println(tableColumns.get(0).getCellData(0));
-////
-////
-////                                    });
-////                                }
-////
-////                                @Override
-////                                protected void updateItem(Boolean item, boolean empty) {
-////                                    super.updateItem(item, empty);
-////                                    if (!empty) {
-////                                        checkBox.setSelected(item);
-////                                        setGraphic(checkBox);
-////                                    } else {
-////                                        setGraphic(null);
-////                                    }
-////                                }
-////                            }; };
-//                            };
-//                        }
-//                    };
-
-
-//            productsTableView.setEditable();
 
             checkColumn.setCellValueFactory(new PropertyValueFactory<>("selected"));
             id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -479,24 +396,39 @@ public class ProductsController {
             introduction.setCellValueFactory(new PropertyValueFactory<>("introduction"));
 
 
-            checkColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkColumn));
+            checkColumn.setCellFactory(checkBoxCallBack);
 
 
-            id.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
+            name.setCellFactory(stringTextFieldCallBack);
+            reserveNow.setCellFactory(numberTextFieldCallBack);
+            reserveMin.setCellFactory(numberTextFieldCallBack);
+            price.setCellFactory(doubleTextFieldCallBack);
+            vendor.setCellFactory(stringTextFieldCallBack);
+            introduction.setCellFactory(stringTextFieldCallBack);
 
-
-//            name.setCellFactory(TextFieldTableCell.forTableColumn());
-            name.setCellFactory(callBackCellFactory);
             name.setEditable(true);
+            reserveNow.setEditable(true);
+            reserveMin.setEditable(true);
+            price.setEditable(true);
+            vendor.setEditable(true);
+            introduction.setEditable(true);
 
 
+//            reserveNow.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
+//            reserveMin.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
+//            price.setCellFactory(TextFieldTableCell.forTableColumn(doubleToString));
+//            vendor.setCellFactory(TextFieldTableCell.forTableColumn());
+//            introduction.setCellFactory(TextFieldTableCell.forTableColumn());
 
-            reserveNow.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
-            reserveMin.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
-            price.setCellFactory(TextFieldTableCell.forTableColumn(doubleToString));
-            vendor.setCellFactory(TextFieldTableCell.forTableColumn());
-            introduction.setCellFactory(TextFieldTableCell.forTableColumn());
 
+            productsTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ProductsListSelected>() {
+                @Override
+                public void changed(ObservableValue<? extends ProductsListSelected> observable, ProductsListSelected oldValue, ProductsListSelected newValue) {
+                    if (oldValue != null)
+
+                        System.out.println(oldValue.isSelected());
+                }
+            });
 
         }
 
@@ -522,13 +454,17 @@ public class ProductsController {
 
 
 //        todo: 测试用例
-        productsListSelectedArrayList.get(0).setSelected(true);
+//        productsListSelectedArrayList.get(0).setSelected(true);
 
         ObservableList<ProductsListSelected> observableArrayList = FXCollections.observableArrayList(productsListSelectedArrayList);
 
 //        System.out.println(observableArrayList);
 
         productsTableView.setItems(observableArrayList);
+    }
+
+    private void setSelect(Integer index, Boolean value) {
+        productsTableView.getItems().get(index).setSelected(value);
     }
 
 
