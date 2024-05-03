@@ -86,13 +86,22 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
         }
 
         int deleteNumber = listStockMapper.deleteBatchIds(idList.get("idList"));
+        Map<String, String> resMap = new HashMap<>();
 
-        if(deleteNumber==0){
-            return Result.build("not delete stock",ResultCodeEnum.DELETE_EMPTY);
-        } else if (deleteNumber<idList.get("idList").size()) {
-         return Result.build("not all are delete",ResultCodeEnum.DELETE_NOT_ALL);
-        }else{
-            return Result.ok("Delete Successful");
+
+        if (deleteNumber == 0) {
+            resMap.put("message", "not delete stock");
+            return Result.build(resMap, ResultCodeEnum.DELETE_EMPTY);
+        } else if (deleteNumber < idList.get("idList").size()) {
+            resMap.put("message", "not all are delete");
+
+
+            return Result.build(resMap, ResultCodeEnum.DELETE_NOT_ALL);
+        } else {
+            resMap.put("message", "Delete Successful");
+
+
+            return Result.ok(resMap);
         }
     }
 
@@ -100,6 +109,9 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
     public Result insertStock(String token, ListStock stock) {
 
         boolean expiration = jwtHelper.isExpiration(token);
+
+        Map<String, String> resMap = new HashMap<>();
+
 
         if (expiration) {
             return Result.build(null, ResultCodeEnum.NOTLOGIN);
@@ -110,10 +122,11 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
 
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.build("Insert Error", ResultCodeEnum.INSERT_ERROR);
+            resMap.put("message", "Insert Error");
+            return Result.build(resMap, ResultCodeEnum.INSERT_ERROR);
         }
-
-        return Result.ok("Insert Successful");
+        resMap.put("message", "Insert Successful");
+        return Result.ok(resMap);
     }
 
     @Override
@@ -121,14 +134,20 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
 
         boolean expiration = jwtHelper.isExpiration(token);
 
+        Map<String, String> resMap = new HashMap<>();
+
+
+
         if (expiration) {
             return Result.build(null, ResultCodeEnum.NOTLOGIN);
         }
 
         if (listStockMapper.updateById(stock) > 0) {
-            return Result.ok("Update Successful");
+            resMap.put("message", "Update Successful");
+            return Result.ok(resMap);
         }
-        return Result.build("Update Empty", ResultCodeEnum.UPDATE_ERROR);
+        resMap.put("message", "Update Empty");
+        return Result.build(resMap, ResultCodeEnum.UPDATE_ERROR);
 
     }
 }

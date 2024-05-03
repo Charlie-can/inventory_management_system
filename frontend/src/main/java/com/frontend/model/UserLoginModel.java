@@ -3,7 +3,7 @@ package com.frontend.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frontend.Application;
 import com.frontend.entity.HTTPStatusEnums;
-import com.frontend.entity.LoginReceiveData;
+import com.frontend.entity.HttpResponseData;
 import com.frontend.entity.LoginSendData;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,14 +18,14 @@ import java.io.InputStreamReader;
 
 public class UserLoginModel {
 
-    static public LoginReceiveData isLogin(int id, String password) {
+    static public HttpResponseData isLogin(int id, String password) {
 
         try {
             // 创建HttpClient实例
             HttpClient httpClient = HttpClientBuilder.create().build();
 
             // 创建POST请求
-            HttpPost request = new HttpPost(Application.appConfigEntity.getHttpClient().getHost()+"/user/login");
+            HttpPost request = new HttpPost(Application.appConfigEntity.getHttpClient().getHost() + "/user/login");
 
             // 添加请求头
             request.addHeader("Content-Type", "application/json");
@@ -47,27 +47,22 @@ public class UserLoginModel {
 
             String responseBody = EntityUtils.toString(response.getEntity());
 
-
-             //            System.out.println("Response: " + result);
-//            System.out.println("loginTest: " + loginReceiveData);
-
-
-                return objectMapper.readValue(responseBody, LoginReceiveData.class);
+            return objectMapper.readValue(responseBody, HttpResponseData.class);
 
 
             // 打印响应内容
 
         } catch (HttpHostConnectException e) {
-            LoginReceiveData loginReceiveData1 = new LoginReceiveData();
-            loginReceiveData1.setCode(HTTPStatusEnums.Not_Connected_Server.getCode());
-            return loginReceiveData1;
+            HttpResponseData HttpResponseData1 = new HttpResponseData();
+            HttpResponseData1.setCode(HTTPStatusEnums.Not_Connected_Server.getCode());
+            return HttpResponseData1;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            LoginReceiveData loginReceiveData1 =new LoginReceiveData();
-            loginReceiveData1.setCode(HTTPStatusEnums.Unknown_Error.getCode());
+            HttpResponseData HttpResponseData1 = new HttpResponseData();
+            HttpResponseData1.setCode(HTTPStatusEnums.Unknown_Error.getCode());
 
-            return loginReceiveData1;
+            return HttpResponseData1;
 
         }
 

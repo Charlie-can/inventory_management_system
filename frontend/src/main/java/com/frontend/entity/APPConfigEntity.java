@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class APPConfigEntity {
     @JsonProperty("HTTPClient")
+
     private HttpClient httpClient;
     @Data
     static public class HttpClient{

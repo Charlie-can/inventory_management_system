@@ -2,9 +2,8 @@ package com.frontend.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.frontend.entity.APPConfigEntity;
-import com.frontend.entity.HTTPStatusEnums;
-import com.frontend.entity.UserInfoReceiveData;
+import com.frontend.entity.*;
+import com.frontend.utils.BackendResource;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -140,7 +139,6 @@ public class FrontendTest {
     }
 
 
-    @Test
     public  void ReadFileTest() throws IOException {
 
         File file = new File("./src/test/resources/com/frontend/config/test123.txt");
@@ -156,7 +154,6 @@ public class FrontendTest {
 
     }
 
-        @Test
     public void YamlReader() {
         try {
             // 创建ObjectMapper对象
@@ -172,15 +169,13 @@ public class FrontendTest {
 
     }
 
-    @Test
-    public void getClassTest(){
+ public void getClassTest(){
 
         System.out.println(getClass().getSimpleName());
 
 
     }
 
-    @Test
     public  void getTest(){
         try {
             // 创建HttpClient实例
@@ -216,4 +211,18 @@ public class FrontendTest {
 
     }
 
+
+    @Test
+    public void  postTest() {
+
+        ProductsList productsList = new ProductsList();
+        productsList.setName("123");
+        productsList.setVendor("12");
+        productsList.setReserveNow(123);
+        productsList.setReserveMin(123);
+        productsList.setPrice(12.0);
+
+
+
+    }
 }

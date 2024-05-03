@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox
-        fx:controller="com.frontend.controller.ProductsController"
+        fx:controller="com.frontend.controller.products.ProductsController"
         alignment="CENTER" onMouseClicked="#OnProductsLabelClicked" prefHeight="50.0" prefWidth="150.0"
         style="-fx-background-color: #CDCDCD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>

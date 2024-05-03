@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.HashMap;
 
 @Data
-public class LoginReceiveData {
+public class HttpResponseData {
 
     private  Integer code;
 

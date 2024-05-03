@@ -9,7 +9,6 @@ public enum HTTPStatusEnums {
 
     private final Integer code;
 
-
     HTTPStatusEnums(Integer code) {
         this.code = code;
 

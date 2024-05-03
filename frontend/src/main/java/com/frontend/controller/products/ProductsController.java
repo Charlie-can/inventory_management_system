@@ -1,6 +1,7 @@
-package com.frontend.controller;
+package com.frontend.controller.products;
 
 import com.frontend.Application;
+import com.frontend.controller.MainController;
 import com.frontend.entity.ProductsList;
 import com.frontend.entity.ProductsListSelected;
 import com.frontend.entity.ProductsReceiveData;
@@ -13,17 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -92,7 +89,7 @@ public class ProductsController {
         try {
 
             mainController.VboxTableInfo.getChildren().clear();
-            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/ProductsTableView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/products/TableView.fxml"));
 
             Parent element = fxmlLoader.load();
 
@@ -152,24 +149,7 @@ public class ProductsController {
 
     @FXML
     public void onAddButtonClicked() {
-        Stage productsSubWindows = new Stage();
-
-        Scene scene;
-        try {
-            scene = new Scene(new FXMLLoader(Application.class.getResource("view/ProductsSubWindow.fxml")).load());
-
-            productsSubWindows.setTitle("添加单元格");
-            productsSubWindows.initOwner(Application.mainStage);
-            productsSubWindows.initModality(Modality.WINDOW_MODAL);
-
-            productsSubWindows.setScene(scene);
-            productsSubWindows.setResizable(false);
-            productsSubWindows.show();
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        ProductsSubWindowController.PopupSubWindow();
     }
 
     @FXML
@@ -209,7 +189,7 @@ public class ProductsController {
 
             if (productsTableViewItems.get(i).isSelected()) {
                 selected++;
-                System.out.println(productsTableViewItems.get(i));
+//                System.out.println(productsTableViewItems.get(i));
                 editeColumn = i;
             }
 
@@ -373,8 +353,9 @@ public class ProductsController {
 
                                     return;
                                 }
-                                System.out.println(getIndex());
-                                System.out.println(item);
+
+//                                System.out.println(getIndex());
+//                                System.out.println(item);
                             }
                             super.updateItem(item, empty);
 
@@ -421,14 +402,14 @@ public class ProductsController {
 //            introduction.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-            productsTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ProductsListSelected>() {
-                @Override
-                public void changed(ObservableValue<? extends ProductsListSelected> observable, ProductsListSelected oldValue, ProductsListSelected newValue) {
-                    if (oldValue != null)
-
-                        System.out.println(oldValue.isSelected());
-                }
-            });
+//            productsTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ProductsListSelected>() {
+//                @Override
+//                public void changed(ObservableValue<? extends ProductsListSelected> observable, ProductsListSelected oldValue, ProductsListSelected newValue) {
+//                    if (oldValue != null)
+//
+//                        System.out.println(oldValue.isSelected());
+//                }
+//            });
 
         }
 

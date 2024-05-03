@@ -12,7 +12,7 @@ public class MainController {
 
 
     @FXML
-    VBox VboxTableInfo;
+    public VBox VboxTableInfo;
 
     @FXML
     private VBox VboxLabel;
@@ -30,28 +30,28 @@ public class MainController {
         UserInfoReceiveData.Data.UserInfo userInfo = Application.userInfoReceiveData.getData().getUserInfo();
 
 
-        loadVboxLabel("view/ProductsLabel.fxml");
+        loadVboxLabel("view/products/ProductsLabel.fxml");
 
 
         if (userInfo.getSalesperson() == 1) {
 
-            loadVboxLabel("view/ProductsSalesLabel.fxml");
+            loadVboxLabel("view/sales/SalesLabel.fxml");
 
         }
 
         if (userInfo.getInventoryperson() == 1) {
-            loadVboxLabel("view/ProductsInventoryLabel.fxml");
+            loadVboxLabel("view/inventory/InventoryLabel.fxml");
         }
 
         if (userInfo.getStorageperson() == 1) {
-            loadVboxLabel("view/ProductsStorageLabel.fxml");
+            loadVboxLabel("view/storage/StorageLabel.fxml");
         }
 
         if (userInfo.getAdmin() == 1) {
-            loadVboxLabel("view/UserManagementLabel.fxml");
+            loadVboxLabel("view/userManagement/UserManagementLabel.fxml");
         }
 
-        loadVboxLabel("view/PersonalInformationLabel.fxml");
+        loadVboxLabel("view/information/PersonalInformationLabel.fxml");
 
 
     }

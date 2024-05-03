@@ -2,7 +2,7 @@ package com.frontend.controller;
 
 import com.frontend.Application;
 import com.frontend.entity.HTTPStatusEnums;
-import com.frontend.entity.LoginReceiveData;
+import com.frontend.entity.HttpResponseData;
 import com.frontend.model.UserLoginModel;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -37,25 +37,25 @@ public class UserLoginController {
             return;
         }
 
-        LoginReceiveData loginReceiveData = UserLoginModel.isLogin(Integer.parseInt(account.getText()), password.getText());
+        HttpResponseData HttpResponseData = UserLoginModel.isLogin(Integer.parseInt(account.getText()), password.getText());
 
 
 
-        if (Objects.equals(loginReceiveData.getCode(), HTTPStatusEnums.OK.getCode())) {
-            Application.userLoginToken = loginReceiveData.getData().get("token");
+        if (Objects.equals(HttpResponseData.getCode(), HTTPStatusEnums.OK.getCode())) {
+            Application.userLoginToken = HttpResponseData.getData().get("token");
 
 //            System.out.println(Application.userLoginToken);
-//            System.out.println("登录成功"+loginReceiveData);
+//            System.out.println("登录成功"+HttpResponseData);
 
             Application.changeView("view/MainView.fxml");
 
             return;
         }
 
-        alert.setHeaderText(loginReceiveData.getMessage());
-        alert.setContentText(loginReceiveData.getMessage());
+        alert.setHeaderText(HttpResponseData.getMessage());
+        alert.setContentText(HttpResponseData.getMessage());
 
-        if (Objects.equals(loginReceiveData.getCode(), HTTPStatusEnums.Not_Connected_Server.getCode())) {
+        if (Objects.equals(HttpResponseData.getCode(), HTTPStatusEnums.Not_Connected_Server.getCode())) {
 
             alert.setHeaderText("未连接到服务器");
             alert.setContentText("没有连接到服务器，请检查网络链接或者服务器发生错误");
