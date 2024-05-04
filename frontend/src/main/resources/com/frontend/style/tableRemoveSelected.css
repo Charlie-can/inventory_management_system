@@ -1,0 +1,4 @@
+.table-view .table-row-cell:selected {
+    -fx-cell-focus-inner-border: transparent; /* 取消内部边框 */
+    -fx-cell-focus-color: transparent; /* 取消焦点颜色 */
+}
