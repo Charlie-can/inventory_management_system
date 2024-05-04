@@ -11,6 +11,7 @@
         <result property="salesperson" column="salesperson" jdbcType="TINYINT"/>
         <result property="storageperson" column="storageperson" jdbcType="TINYINT"/>
         <result property="inventoryperson" column="inventoryperson" jdbcType="TINYINT"/>
+        <result property="stockmanager" column="stockmanager" jdbcType="TINYINT"/>
 
         <collection property="employee" javaType="com.backend.pojo.Employee">
             <id property="id" column="e_id" jdbcType="INTEGER"/>

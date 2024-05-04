@@ -29,25 +29,25 @@ public class MainController {
 
         UserInfoReceiveData.Data.UserInfo userInfo = Application.userInfoReceiveData.getData().getUserInfo();
 
+        if (userInfo.getStockmanager()) {
+            loadVboxLabel("view/products/ProductsLabel.fxml");
+        }
 
-        loadVboxLabel("view/products/ProductsLabel.fxml");
-
-
-        if (userInfo.getSalesperson() == 1) {
+        if (userInfo.getSalesperson()) {
 
             loadVboxLabel("view/sales/SalesLabel.fxml");
 
         }
 
-        if (userInfo.getInventoryperson() == 1) {
+        if (userInfo.getInventoryperson()) {
             loadVboxLabel("view/inventory/InventoryLabel.fxml");
         }
 
-        if (userInfo.getStorageperson() == 1) {
+        if (userInfo.getStorageperson()) {
             loadVboxLabel("view/storage/StorageLabel.fxml");
         }
 
-        if (userInfo.getAdmin() == 1) {
+        if (userInfo.getAdmin()) {
             loadVboxLabel("view/userManagement/UserManagementLabel.fxml");
         }
 

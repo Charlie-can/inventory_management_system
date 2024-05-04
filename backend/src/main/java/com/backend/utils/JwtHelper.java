@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
 
 @Data
 @Component
@@ -15,17 +16,15 @@ import java.util.Date;
 public class JwtHelper {
 
     private long tokenExpiration; //有效时间,单位毫秒 1000毫秒 == 1秒
+
     private String tokenSignKey;  //当前程序签名秘钥
 
     //生成token字符串
-    public String createToken(Long userId) {
-//        System.out.println("tokenExpiration = " + tokenExpiration);
-//        System.out.println("tokenSignKey = " + tokenSignKey);
+    public String createToken(HashMap<String, Object> claimsMap) {
         String token = Jwts.builder()
-
-                .setSubject("YYGH-USER")
+                .setSubject("USER")
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration * 1000 * 60)) //单位分钟
-                .claim("userId", userId)
+                .addClaims(claimsMap)
                 .signWith(SignatureAlgorithm.HS512, tokenSignKey)
                 .compressWith(CompressionCodecs.GZIP)
                 .compact();
@@ -41,6 +40,41 @@ public class JwtHelper {
         return userId.longValue();
     }
 
+
+    public Boolean isAdmin(String token) {
+        if (StringUtils.isEmpty(token)) return null;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Claims claims = claimsJws.getBody();
+        return (Boolean) claims.get("isAdmin");
+    }
+
+    public Boolean isStoragePerson(String token) {
+        if (StringUtils.isEmpty(token)) return null;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Claims claims = claimsJws.getBody();
+        return (Boolean) claims.get("isStoragePerson");
+    }
+
+    public Boolean isSalesperson(String token) {
+        if (StringUtils.isEmpty(token)) return null;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Claims claims = claimsJws.getBody();
+        return (Boolean) claims.get("isSalesperson");
+    }
+
+    public Boolean isInventoryPerson(String token) {
+        if (StringUtils.isEmpty(token)) return null;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Claims claims = claimsJws.getBody();
+        return (Boolean) claims.get("isInventoryPerson");
+    }
+
+    public Boolean isStockManager(String token) {
+        if (StringUtils.isEmpty(token)) return null;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
+        Claims claims = claimsJws.getBody();
+        return (Boolean) claims.get("isStockManager");
+    }
 
     //判断token是否有效
     public boolean isExpiration(String token) {

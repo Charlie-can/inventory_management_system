@@ -81,6 +81,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
 
         boolean expiration = jwtHelper.isExpiration(token);
 
+
         if (expiration) {
             return Result.build(null, ResultCodeEnum.NOTLOGIN);
         }

@@ -27,13 +27,15 @@ public class UserInfoReceiveData {
 
             private String password;
 
-            private Integer admin;
+            private Boolean admin;
 
-            private Integer salesperson;
+            private Boolean salesperson;
 
-            private Integer storageperson;
+            private Boolean storageperson;
 
-            private Integer inventoryperson;
+            private Boolean inventoryperson;
+
+            private Boolean stockmanager;
 
             private EmployeeInfoReceiveData employee;
 

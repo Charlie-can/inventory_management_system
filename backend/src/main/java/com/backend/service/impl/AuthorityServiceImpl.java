@@ -53,7 +53,17 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
         if (!StringUtils.isEmpty(authority.getPassword()) && MD5Util.encrypt(authority.getPassword()).equals(dataAuthority.getPassword())) {
 
-            String token = jwtHelper.createToken(Long.valueOf(dataAuthority.getId()));
+
+            HashMap<String, Object> claimsMap = new HashMap<>();
+
+            claimsMap.put("userId", dataAuthority.getId());
+            claimsMap.put("isAdmin", dataAuthority.getAdmin());
+            claimsMap.put("isSalesperson", dataAuthority.getSalesperson());
+            claimsMap.put("isStoragePerson", dataAuthority.getStorageperson());
+            claimsMap.put("isInventoryPerson", dataAuthority.getInventoryperson());
+            claimsMap.put("isStockManager", dataAuthority.getStockmanager());
+
+            String token = jwtHelper.createToken(claimsMap);
 
             Map<String, String> tokenMap = new HashMap<>();
 
@@ -81,11 +91,17 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
         int userId = Math.toIntExact(jwtHelper.getUserId(token));
 
         AuthorAndEmployess authorAndEmployess = authorityAndEmployeeMapper.SelectIdInAuthorityAndEmployee(userId);
+
+        System.out.println(authorAndEmployess);
+
         authorAndEmployess.setPassword(null);
 
         Map<String, AuthorAndEmployess> authorAndEmployessMap = new HashMap<>();
 
         authorAndEmployessMap.put("UserInfo", authorAndEmployess);
+
+
+
 
         return Result.ok(authorAndEmployessMap);
     }

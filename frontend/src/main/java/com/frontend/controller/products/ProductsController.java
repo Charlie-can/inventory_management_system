@@ -2,10 +2,9 @@ package com.frontend.controller.products;
 
 import com.frontend.Application;
 import com.frontend.controller.MainController;
-import com.frontend.entity.ProductsList;
-import com.frontend.entity.ProductsListSelected;
-import com.frontend.entity.ProductsReceiveData;
+import com.frontend.entity.*;
 import com.frontend.model.ProductsModel;
+import com.frontend.utils.BackendResource;
 import com.frontend.utils.PopupWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,6 +21,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ProductsController {
@@ -104,7 +104,7 @@ public class ProductsController {
     @FXML
     public void onRestButtonClicked() {
         showAllProducts();
-
+        PopupWindow.informationWindow("已刷新");
     }
 
     @FXML
@@ -154,16 +154,59 @@ public class ProductsController {
 
     @FXML
     public void onDelButtonClicked() {
-        for (int i = 0; i < 10; i++)
-            System.out.println(" ");
+
+
+        ArrayList<Integer> idList = new ArrayList<>();
+        for (ProductsListSelected viewItem : productsTableView.getItems()) {
+
+            if (viewItem.isSelected()) {
+                idList.add(viewItem.getId());
+            }
+
+        }
+
+        if (idList.isEmpty()) {
+            PopupWindow.alertWindow("请选择一条商品删除");
+            return;
+        }
+
+
+        System.out.println(idList);
+        HashMap<String, ArrayList<Integer>> idListMap = new HashMap<>();
+        idListMap.put("idList", idList);
+
+        BackendResource<HashMap<String, ArrayList<Integer>>> hashMapBackendResource = new BackendResource<>();
+
+        HttpResponseData httpResponseData = hashMapBackendResource.postRequest("/stocks/deleteStocks", idListMap);
+
+        System.out.println(httpResponseData);
+        if (!Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())) {
+            PopupWindow.alertWindow("可能有部分删除失败");
+            showAllProducts();
+            return;
+        }
+
+        PopupWindow.informationWindow("删除成功");
+        showAllProducts();
     }
 
     @FXML
     public void onSaveButtonClicked() {
         if (editeColumn != null) {
-            System.out.println("save");
+
+            ProductsList productsList = new ProductsList(productsTableView.getItems().get(editeColumn));
+            BackendResource<ProductsList> productsListBackendResource = new BackendResource<>();
+
+
+            HttpResponseData httpResponseData =  productsListBackendResource.postRequest("/stocks/updateStock",productsList);
+
+            if (!Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())){
+                PopupWindow.alertWindow("保存失败,请重新尝试",httpResponseData.toString());
+                return;
+            }
+            PopupWindow.informationWindow("保存成功");
             editeColumn = null;
-        }else{
+        } else {
             PopupWindow.alertWindow("没有未保存的单元");
         }
     }
@@ -216,7 +259,7 @@ public class ProductsController {
     public void initialize() {
 
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
-        Application.shareController.put(ProductsController.class.getSimpleName(),this);
+        Application.shareController.put(ProductsController.class.getSimpleName(), this);
 
 
         if (productsComboBox != null) {
@@ -288,7 +331,7 @@ public class ProductsController {
                         @Override
                         public void startEdit() {
 
-                            System.out.println("startEdit");
+//                            System.out.println("startEdit");
 
                             if (editeColumn != null && getIndex() == editeColumn) {
                                 super.startEdit();

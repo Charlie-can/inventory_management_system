@@ -1,7 +1,6 @@
 package com.frontend.controller.products;
 
 import com.frontend.Application;
-import com.frontend.controller.MainController;
 import com.frontend.entity.HTTPStatusEnums;
 import com.frontend.entity.HttpResponseData;
 import com.frontend.entity.ProductsList;
@@ -68,28 +67,36 @@ public class ProductsSubWindowController {
 
         } catch (NumberFormatException numberFormatException) {
             PopupWindow.alertWindow("您输入的不是一个有效的数字", "请检查商品价格、当前库存或最低库存，查看是否为整数或小数");
+            return;
         }
 
 
         BackendResource<ProductsList> httpResponseDataBackendResource = new BackendResource<>();
 
+        System.out.println(productsList);
+
+
         HttpResponseData httpResponseData = httpResponseDataBackendResource.postRequest("/stocks/insertStock", productsList);
 
-        if(Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())){
+        try {
+            if(Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())){
 
-            PopupWindow.informationWindow("成功添加");
+                PopupWindow.informationWindow("成功添加");
 
-            productsController.onRestButtonClicked();
+                productsController.showAllProducts();
 
-            productsSubWindowStage.close();
+                productsSubWindowStage.close();
+            }
+        }catch (Exception e){
+            PopupWindow.alertWindow("添加失败");
         }
+
 
     }
 
     @FXML
     public void onCancelButtonClick() {
         productsSubWindowStage.close();
-        PopupWindow.alertWindow("test");
     }
 
 
@@ -124,6 +131,7 @@ public class ProductsSubWindowController {
         productsController = (ProductsController) Application.shareController.get(ProductsController.class.getSimpleName());
 
     }
+
 
 }
 

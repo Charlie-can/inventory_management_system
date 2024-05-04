@@ -16,13 +16,16 @@ public class Authority implements Serializable {
 
     private String password;
 
-    private Integer admin;
+    private Boolean admin;
 
-    private Integer salesperson;
+    private Boolean salesperson;
 
-    private Integer storageperson;
+    private Boolean storageperson;
 
-    private Integer inventoryperson;
+    private Boolean inventoryperson;
+
+    private Boolean stockmanager;
+
 
     @Serial
     private static final long serialVersionUID = 1L;
