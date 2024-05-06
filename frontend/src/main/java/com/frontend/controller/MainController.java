@@ -6,13 +6,16 @@ import com.frontend.model.MainDisplayModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class MainController {
 
 
     @FXML
-    public VBox VboxTableInfo;
+    public  VBox VboxTableInfo;
 
     @FXML
     private VBox VboxLabel;
@@ -56,6 +59,8 @@ public class MainController {
 
     }
 
+
+
     private void loadVboxLabel(String labelViewPath) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(labelViewPath));
@@ -69,6 +74,26 @@ public class MainController {
         }
 
     }
+
+//    static  public void loadVboxTableInfo(String viewPath){
+//
+//        try {
+//        VboxTableInfo.getChildren().clear();
+//
+//        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(viewPath));
+//
+//        Parent element = fxmlLoader.load();
+//
+//        VboxTableInfo.getChildren().add(element);
+//
+//        }catch (Exception e){
+//
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//    }
 
 
 }

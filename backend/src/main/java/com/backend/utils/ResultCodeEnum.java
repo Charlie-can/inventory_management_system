@@ -7,6 +7,7 @@ public enum ResultCodeEnum {
 
     SUCCESS(200, "success"),
     USERNAME_ERROR(501, "usernameError"),
+    PERMISSIONS_INSUFFICIENT(502,"permissionsInsufficient"),
     PASSWORD_ERROR(503, "passwordError"),
     NOTLOGIN(504, "notLogin"),
     USERNAME_USED(505, "userNameUsed"),

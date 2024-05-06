@@ -33,7 +33,7 @@ public class StockController {
         if (!(type.isEmpty() || value.isEmpty())) {
             return listStockService.queryStocks(token, type, value);
         }
-
+        System.out.println(Result.build("One parameter is empty", ResultCodeEnum.USERINPUT_ERROR));
         return Result.build("One parameter is empty", ResultCodeEnum.USERINPUT_ERROR);
     }
 

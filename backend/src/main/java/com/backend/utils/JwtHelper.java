@@ -4,6 +4,7 @@ package com.backend.utils;
 import com.alibaba.druid.util.StringUtils;
 import io.jsonwebtoken.*;
 import lombok.Data;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -86,6 +87,7 @@ public class JwtHelper {
                     .getExpiration().before(new Date());
             //没有过期，有效，返回false
             return isExpire;
+
         } catch (Exception e) {
             //过期出现异常，返回true
             return true;

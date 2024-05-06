@@ -14,7 +14,15 @@ module com.frontend {
     exports com.frontend.entity;
 
     opens com.frontend.controller to javafx.fxml;
+
     opens com.frontend.entity to javafx.base;
     exports com.frontend.controller.products;
+    exports com.frontend.controller.sales;
+    exports com.frontend.utils;
+
+
     opens com.frontend.controller.products to javafx.fxml;
+    opens com.frontend.controller.sales to javafx.fxml;
+
+
 }

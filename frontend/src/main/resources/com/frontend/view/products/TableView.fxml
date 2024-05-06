@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.products.ProductsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.products.ProductsController">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="871.0" spacing="5.0">
             <children>
@@ -43,7 +43,7 @@
                 <TableColumn fx:id="reserveMin" editable="false" prefWidth="110.0" text="最低库存" />
                 <TableColumn fx:id="price" editable="false" prefWidth="110.0" text="价格" />
                 <TableColumn fx:id="vendor" editable="false" prefWidth="110.0" text="制造商" />
-                <TableColumn fx:id="introduction" editable="false" prefWidth="253.33331298828125" text="商品描述" />
+                <TableColumn fx:id="introduction" editable="false" prefWidth="172.0" text="商品描述" />
             </columns>
             <VBox.margin>
                 <Insets />

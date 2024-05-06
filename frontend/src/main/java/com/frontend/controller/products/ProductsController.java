@@ -86,6 +86,7 @@ public class ProductsController {
     @FXML
     public void OnProductsLabelClicked() {
 
+//        MainController.loadVboxTableInfo("view/products/TableView.fxml");
         try {
 
             mainController.VboxTableInfo.getChildren().clear();
@@ -198,10 +199,10 @@ public class ProductsController {
             BackendResource<ProductsList> productsListBackendResource = new BackendResource<>();
 
 
-            HttpResponseData httpResponseData =  productsListBackendResource.postRequest("/stocks/updateStock",productsList);
+            HttpResponseData httpResponseData = productsListBackendResource.postRequest("/stocks/updateStock", productsList);
 
-            if (!Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())){
-                PopupWindow.alertWindow("保存失败,请重新尝试",httpResponseData.toString());
+            if (!Objects.equals(httpResponseData.getCode(), HTTPStatusEnums.OK.getCode())) {
+                PopupWindow.alertWindow("保存失败,请重新尝试", httpResponseData.toString());
                 return;
             }
             PopupWindow.informationWindow("保存成功");
@@ -437,23 +438,6 @@ public class ProductsController {
             vendor.setEditable(true);
             introduction.setEditable(true);
 
-
-//            reserveNow.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
-//            reserveMin.setCellFactory(TextFieldTableCell.forTableColumn(numberToString));
-//            price.setCellFactory(TextFieldTableCell.forTableColumn(doubleToString));
-//            vendor.setCellFactory(TextFieldTableCell.forTableColumn());
-//            introduction.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
-//            productsTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ProductsListSelected>() {
-//                @Override
-//                public void changed(ObservableValue<? extends ProductsListSelected> observable, ProductsListSelected oldValue, ProductsListSelected newValue) {
-//                    if (oldValue != null)
-//
-//                        System.out.println(oldValue.isSelected());
-//                }
-//            });
-
         }
 
     }
@@ -475,15 +459,7 @@ public class ProductsController {
             productsListSelectedArrayList.add(productsListSelected);
 
         }
-
-
-//        todo: 测试用例
-//        productsListSelectedArrayList.get(0).setSelected(true);
-
         ObservableList<ProductsListSelected> observableArrayList = FXCollections.observableArrayList(productsListSelectedArrayList);
-
-//        System.out.println(observableArrayList);
-
         productsTableView.setItems(observableArrayList);
     }
 
