@@ -14,7 +14,8 @@ import lombok.Data;
 @TableName(value ="list_inventory")
 @Data
 public class ListInventory implements Serializable {
-    @TableId
+    @TableId(value = "id",type = IdType.AUTO)
+
     private Integer id;
 
     private Integer stockId;

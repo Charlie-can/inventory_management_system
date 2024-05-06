@@ -1,25 +1,31 @@
 package com.backend.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @TableName list_sales
  */
-@TableName(value ="list_sales")
+@TableName(value = "list_sales")
 @Data
 public class ListSales implements Serializable {
-    @TableId
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private Integer stockId;
 
-    private Date saleTime;
+        @TableField(fill = FieldFill.INSERT)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime saleTime;
 
     private Double salePrice;
 

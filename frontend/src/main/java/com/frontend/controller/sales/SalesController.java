@@ -152,6 +152,13 @@ public class SalesController {
         System.out.println(selectCount);
     }
 
+
+    @FXML
+    public void OnConfirmButtonClicked(){
+        System.out.println(saleDate.getValue());
+
+
+    }
     @FXML
     public void onCheckColumnCheckBoxClicked() {
 

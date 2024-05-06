@@ -1,5 +1,6 @@
 package com.backend.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -12,7 +13,8 @@ import lombok.Data;
 @TableName(value ="list_storage")
 @Data
 public class ListStorage implements Serializable {
-    @TableId
+    @TableId(value = "id",type = IdType.AUTO)
+
     private Integer id;
 
     private Integer stockId;
