@@ -15,14 +15,14 @@ import java.util.Map;
  */
 public interface ListStockService extends IService<ListStock> {
 
-    Result getAllStock(String token);
+    Result getAllStock( );
 
-    Result queryStocks(String token, String type, String value);
+    Result queryStocks(  String type, String value);
 
-    Result deleteStocks(String token, Map<String, List<Integer>> idList);
+    Result deleteStocks(  Map<String, List<Integer>> idList);
 
 
-    Result insertStock(String token, ListStock stock);
+    Result insertStock( ListStock stock);
 
-    Result updateStock(String token, ListStock stock);
+    Result updateStock(  ListStock stock);
 }

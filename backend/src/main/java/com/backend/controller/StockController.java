@@ -24,14 +24,14 @@ public class StockController {
     @GetMapping("/getAllStocks")
     public Result getAllStocks(@RequestHeader String token) {
 
-        return listStockService.getAllStock(token);
+        return listStockService.getAllStock();
     }
 
 
     @GetMapping("/queryStocks")
     public Result queryStocks(@RequestHeader String token, @RequestParam("type") String type, @RequestParam("value") String value) {
         if (!(type.isEmpty() || value.isEmpty())) {
-            return listStockService.queryStocks(token, type, value);
+            return listStockService.queryStocks( type, value);
         }
         System.out.println(Result.build("One parameter is empty", ResultCodeEnum.USERINPUT_ERROR));
         return Result.build("One parameter is empty", ResultCodeEnum.USERINPUT_ERROR);
@@ -45,7 +45,7 @@ public class StockController {
             return Result.build("delete parameter error",ResultCodeEnum.USERINPUT_ERROR);
         }
 
-        return listStockService.deleteStocks(token,idList);
+        return listStockService.deleteStocks(idList);
     }
 
 
@@ -53,13 +53,13 @@ public class StockController {
     public Result insertStock(@RequestHeader String token, @RequestBody ListStock stock) {
 
         System.out.println(stock);
-        return listStockService.insertStock(token, stock);
+        return listStockService.insertStock( stock);
     }
 
     @PostMapping("/updateStock")
     public Result updateStock(@RequestHeader String token, @RequestBody ListStock stock) {
 
-        return listStockService.updateStock(token, stock);
+        return listStockService.updateStock( stock);
 
 
     }

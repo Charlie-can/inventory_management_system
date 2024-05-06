@@ -1,6 +1,7 @@
 package com.backend.service;
 
 import com.backend.pojo.ListSales;
+import com.backend.utils.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ListSalesService extends IService<ListSales> {
 
+
+
+    Result salesStock(ListSales listSales);
 }

@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserController {
 
-    @Resource
+
     private AuthorityService authorityService;
 
+    @Autowired
+    public void setAuthorityService(AuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
 
     @PostMapping("/login")
 

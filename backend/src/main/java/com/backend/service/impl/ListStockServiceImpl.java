@@ -29,7 +29,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
 
 
     @Override
-    public Result getAllStock(String token) {
+    public Result getAllStock( ) {
 
 
         List<ListStock> listStockArrayList = listStockMapper.selectList(null);
@@ -42,7 +42,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
     }
 
     @Override
-    public Result queryStocks(String token, String type, String value) {
+    public Result queryStocks( String type, String value) {
 
 
         if (!Arrays.asList("id", "name", "reserve_now", "reserve_min", "price", "vendor", "Introduction").contains(type)) {
@@ -65,7 +65,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
     }
 
     @Override
-    public Result deleteStocks(String token, Map<String, List<Integer>> idList) {
+    public Result deleteStocks( Map<String, List<Integer>> idList) {
 
 
         int deleteNumber = listStockMapper.deleteBatchIds(idList.get("idList"));
@@ -89,7 +89,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
     }
 
     @Override
-    public Result insertStock(String token, ListStock stock) {
+    public Result insertStock(  ListStock stock) {
 
 
         Map<String, String> resMap = new HashMap<>();
@@ -108,7 +108,7 @@ public class ListStockServiceImpl extends ServiceImpl<ListStockMapper, ListStock
     }
 
     @Override
-    public Result updateStock(String token, ListStock stock) {
+    public Result updateStock(  ListStock stock) {
 
         Map<String, String> resMap = new HashMap<>();
 

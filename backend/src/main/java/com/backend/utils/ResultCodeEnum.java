@@ -14,10 +14,10 @@ public enum ResultCodeEnum {
     USERINPUT_ERROR(506, "parameterError"),
     INSERT_ERROR(507, "InsertParameterError"),
     DELETE_EMPTY(508, "DeleteEmpty"),
-
     DELETE_NOT_ALL(509, "DeleteNotAll"),
+    UPDATE_ERROR(511, "UpdateEmpty"),
+    QUERY_EMPTY(512, "QueryEmpty");
 
-    UPDATE_ERROR(511, "UpdateEmpty");
 
 
 

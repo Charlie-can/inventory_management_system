@@ -31,6 +31,8 @@ public class MainController {
 
 
         UserInfoReceiveData.Data.UserInfo userInfo = Application.userInfoReceiveData.getData().getUserInfo();
+//        System.out.println(userInfo);
+
 
         if (userInfo.getStockmanager()) {
             loadVboxLabel("view/products/ProductsLabel.fxml");

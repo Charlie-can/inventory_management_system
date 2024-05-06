@@ -19,7 +19,7 @@ module com.frontend {
     exports com.frontend.controller.products;
     exports com.frontend.controller.sales;
     exports com.frontend.utils;
-
+    exports com.frontend.controller.information;
 
     opens com.frontend.controller.products to javafx.fxml;
     opens com.frontend.controller.sales to javafx.fxml;
