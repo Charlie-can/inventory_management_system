@@ -23,6 +23,7 @@ public enum ResultCodeEnum {
 
 
 
+
     private Integer code;
     private String message;
 

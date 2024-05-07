@@ -11,8 +11,11 @@ import com.backend.mapper.ListSalesMapper;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.unit.DataUnit;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,10 +42,19 @@ public class ListSalesServiceImpl extends ServiceImpl<ListSalesMapper, ListSales
     @Override
     public Result salesStock(ListSales listSales) {
 
-        System.out.println(listSales);
-
         @SuppressWarnings("unchecked") HashMap<String, ArrayList<ListStock>> stockData = (HashMap<String, ArrayList<ListStock>>) listStockService.queryStocks("id", String.valueOf(listSales.getStockId())).getData();
         Result updateStockResult;
+
+        if (listSales.getSaleVolume() <= 0) {
+
+            return Result.build("Sale Volume Cannot be less than or equal to zero", ResultCodeEnum.INSERT_ERROR);
+
+        }
+        if (listSales.getSaleTime().isAfter(LocalDateTime.now())) {
+
+            return Result.build("Time is not the time of the future", ResultCodeEnum.INSERT_ERROR);
+
+        }
 
 
         try {
@@ -54,9 +66,9 @@ public class ListSalesServiceImpl extends ServiceImpl<ListSalesMapper, ListSales
             stock.setReserveNow(stock.getReserveNow() - listSales.getSaleVolume());
             updateStockResult = listStockService.updateStock(stock);
         } catch (Exception e) {
-            e.printStackTrace();
             return Result.build("Query Empty", ResultCodeEnum.QUERY_EMPTY);
         }
+
 
         if (updateStockResult.getCode() != 200) {
             return Result.build("Update Error", ResultCodeEnum.UPDATE_ERROR);

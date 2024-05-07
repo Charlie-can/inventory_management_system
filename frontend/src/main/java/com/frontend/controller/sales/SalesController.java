@@ -132,6 +132,7 @@ public class SalesController {
 
     @FXML
     public void onSaleButtonClicked() {
+
         int selectCount = 0;
 
         ObservableList<ProductsListSelected> salesTableViewItems = salesTableView.getItems();
@@ -154,11 +155,39 @@ public class SalesController {
 
 
     @FXML
-    public void OnConfirmButtonClicked(){
-        System.out.println(saleDate.getValue());
+    public void OnConfirmButtonClicked() {
+//
+//        public static void main(String[] args) {
+//            String timeString = "10:55:44";
+//            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//            try {
+//                Date time = sdf.parse(timeString);
+//                System.out.println("时间：" + time);
+//            } catch (ParseException e) {
+//                System.out.println("解析失败：" + e.getMessage());
+//            }
+//        }
+
+    try {
+        if (saleId.getText() == null ||
+                saleName.getText() == null ||
+                saleNumber.getText() == null ||
+                salePrice.getText() == null ||
+                saleDate.getValue() == null
+        ) {
+            PopupWindow.alertWindow("请输入数据");
+            return;
+        }
+
+
+    }catch (Exception e){
+        PopupWindow.alertWindow("输入的时间日期有误");
+        return;
+    }
 
 
     }
+
     @FXML
     public void onCheckColumnCheckBoxClicked() {
 
@@ -216,7 +245,6 @@ public class SalesController {
     }
 
     public void setTableData(ProductsReceiveData productsReceiveData) {
-
 
         if (productsReceiveData.getCode() != 200) {
             PopupWindow.alertWindow(productsReceiveData.getMessage());
