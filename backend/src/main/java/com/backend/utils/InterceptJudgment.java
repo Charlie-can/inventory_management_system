@@ -39,7 +39,6 @@ public class InterceptJudgment {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         ServletOutputStream outputStream = response.getOutputStream();
-//        PrintWriter outputStream = response.getWriter();
 
         String token = request.getHeader("token");
         //登录过期
@@ -56,7 +55,8 @@ public class InterceptJudgment {
             return returnMap;
         }
 
-        if (authorityEnum == AuthorityEnum.ADMIN && jwtHelper.isAdmin(token) ||
+        if (
+                authorityEnum == AuthorityEnum.ADMIN && jwtHelper.isAdmin(token) ||
                 authorityEnum == AuthorityEnum.SALESPERSON && jwtHelper.isSalesperson(token) ||
                 authorityEnum == AuthorityEnum.STOCKMANAGER && jwtHelper.isStockManager(token) ||
                 authorityEnum == AuthorityEnum.INVENTORYPERSON && jwtHelper.isInventoryPerson(token) ||

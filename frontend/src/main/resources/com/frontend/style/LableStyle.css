@@ -1,5 +1,4 @@
-Button {
-
+ToggleButton {
     -fx-background-color: #e1e1e1;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
@@ -9,11 +8,11 @@ Button {
     -fx-pref-height: 50;
 }
 
-Button:hover {
+ToggleButton:hover {
     -fx-background-color: #c2c2c2;
 }
 
-Button:pressed{
-    -fx-background-color: #c2c2c2;
+ToggleButton:selected{
+    -fx-background-color: #9d9d9d;
 
 }

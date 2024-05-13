@@ -31,6 +31,7 @@ import java.util.jar.JarEntry;
 
 public class StorageController {
 
+
     private MainController mainController;
 
 
@@ -82,10 +83,20 @@ public class StorageController {
     @FXML
     private TextField storageTime;
 
+    @FXML
+    public ToggleButton storageToggleButton;
+
 
     @FXML
     public void OnStorageLabelClicked() {
         try {
+            for (ToggleButton toggleButton : Application.shareLabelButton) {
+                if(toggleButton!=null){
+                    toggleButton.setSelected(false);
+                }
+            }
+            storageToggleButton.setSelected(true);
+
 
             mainController.VboxTableInfo.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/storage/TableView.fxml"));
@@ -255,6 +266,10 @@ public class StorageController {
 
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
         Application.shareController.put(StorageController.class.getSimpleName(), this);
+
+        if (storageToggleButton != null)
+            Application.shareLabelButton.add(storageToggleButton);
+
 
 
         if (storageTableView != null) {

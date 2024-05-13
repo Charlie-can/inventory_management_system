@@ -1,9 +1,6 @@
 package com.backend.config;
 
-import com.backend.interceptor.InventoryInterceptor;
-import com.backend.interceptor.SalesInterceptor;
-import com.backend.interceptor.StockInterceptor;
-import com.backend.interceptor.StorageInterceptor;
+import com.backend.interceptor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,14 +14,22 @@ public class WebMvcInterceptorsConfig implements WebMvcConfigurer {
     private SalesInterceptor salesInterceptor;
 
     private StorageInterceptor storageInterceptor;
+    private InventoryInterceptor inventoryInterceptor;
 
+    private UserManagementInterceptor userManagementInterceptor;
 
-   private InventoryInterceptor inventoryInterceptor;
+    @Autowired
 
-   @Autowired
-    public void setInterceptor(InventoryInterceptor inventoryInterceptor) {
+    public void setInventoryInterceptor(InventoryInterceptor inventoryInterceptor) {
         this.inventoryInterceptor = inventoryInterceptor;
     }
+
+    @Autowired
+
+    public void setUserManagementInterceptor(UserManagementInterceptor userManagementInterceptor) {
+        this.userManagementInterceptor = userManagementInterceptor;
+    }
+
 
     @Autowired
     private void setStockInterceptor(StockInterceptor stockInterceptor) {
@@ -43,6 +48,7 @@ public class WebMvcInterceptorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(stockInterceptor).addPathPatterns("/stocks/**").excludePathPatterns("/stocks/getAllStocks");
 
         registry.addInterceptor(salesInterceptor).addPathPatterns("/sales/**");
@@ -50,6 +56,8 @@ public class WebMvcInterceptorsConfig implements WebMvcConfigurer {
         registry.addInterceptor(storageInterceptor).addPathPatterns("/storage/**");
 
         registry.addInterceptor(inventoryInterceptor).addPathPatterns("/inventory/**");
+
+        registry.addInterceptor(userManagementInterceptor).addPathPatterns("/userManagement/**");
 
     }
 }

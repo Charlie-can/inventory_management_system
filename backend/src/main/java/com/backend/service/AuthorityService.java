@@ -14,4 +14,7 @@ public interface AuthorityService extends IService<Authority> {
     Result login(Authority authority);
 
     Result getUserInfo(String token);
+
+
+    Result getUserInfoList();
 }

@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER"  prefHeight="50.0" prefWidth="150.0" stylesheets="@../../style/LableStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.information.InformationController">
+<?import javafx.scene.control.ToggleButton?>
+<HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0" stylesheets="@../../style/LableStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.information.InformationController">
    <children>
-      <Button onMouseClicked="#OnInformationLabelClicked" mnemonicParsing="false" text="个人信息" />
+      <ToggleButton fx:id="informationToggleButton" onMouseClicked="#OnInformationLabelClicked" mnemonicParsing="false" text="个人信息" />
    </children>
 </HBox>

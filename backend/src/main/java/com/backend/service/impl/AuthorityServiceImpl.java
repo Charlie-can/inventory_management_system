@@ -15,7 +15,9 @@ import com.backend.mapper.AuthorityMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -104,6 +106,23 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
 
         return Result.ok(authorAndEmployessMap);
+    }
+
+    @Override
+    public Result getUserInfoList() {
+
+        ArrayList<AuthorAndEmployess> authorAndEmployessArrayList = authorityAndEmployeeMapper.SelectAllAuthorityAndEmployee();
+
+        for (AuthorAndEmployess authorAndEmployess : authorAndEmployessArrayList) {
+            authorAndEmployess.setPassword("***");
+        }
+
+
+        Map<String,ArrayList<AuthorAndEmployess>> authorityMap = new HashMap<>();
+
+        authorityMap.put("UserInfoList", authorAndEmployessArrayList);
+
+        return Result.ok(authorityMap);
     }
 }
 

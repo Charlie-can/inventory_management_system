@@ -16,6 +16,7 @@ module com.frontend {
     exports com.frontend.controller.sales;
     exports com.frontend.utils;
     exports com.frontend.controller.information;
+    exports com.frontend.controller.userManagement;
 
     opens com.frontend to javafx.fxml;
     opens com.frontend.controller to javafx.fxml;
@@ -25,5 +26,6 @@ module com.frontend {
     opens com.frontend.controller.storage  to  javafx.fxml;
     exports com.frontend.controller.inventory;
     opens com.frontend.controller.inventory to javafx.fxml;
+    opens com.frontend.controller.userManagement  to javafx.fxml;
 
 }

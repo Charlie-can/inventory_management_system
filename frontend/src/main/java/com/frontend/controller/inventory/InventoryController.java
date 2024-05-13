@@ -22,8 +22,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 public class InventoryController {
+
 
     private MainController mainController;
 
@@ -54,6 +56,8 @@ public class InventoryController {
 
 
     @FXML
+    public ToggleButton inventoryToggleButton;
+    @FXML
     private TextField userSearchField;
 
     @FXML
@@ -63,6 +67,11 @@ public class InventoryController {
     @FXML
     public void onRestButtonClicked() {
         OnInventoryLabelClicked();
+        for (ToggleButton toggleButton : Application.shareLabelButton) {
+            if (Objects.equals(toggleButton.getText(), "商品盘查"))
+                toggleButton.setSelected(true);
+        }
+
     }
 
 
@@ -72,18 +81,27 @@ public class InventoryController {
         BackendResource<HttpResponseData> httpResponseDataBackendResource = new BackendResource<>();
 
         HttpResponseData request = httpResponseDataBackendResource.getRequest("/inventory/generateInventory", HttpResponseData.class);
-        if (request.getCode() == HTTPStatusEnums.OK.getCode()) {
+        if (Objects.equals(request.getCode(), HTTPStatusEnums.OK.getCode())) {
             PopupWindow.alertWindow("生成成功");
         }
-
 
 
     }
 
 
     @FXML
-    public void OnInventoryLabelClicked( ) {
+    public void OnInventoryLabelClicked() {
         try {
+            for (ToggleButton toggleButton : Application.shareLabelButton) {
+
+                if (toggleButton != null) {
+                    toggleButton.setSelected(false);
+                }
+            }
+
+            if (inventoryToggleButton != null)
+                inventoryToggleButton.setSelected(true);
+
 
             mainController.VboxTableInfo.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/inventory/TableView.fxml"));
@@ -92,6 +110,7 @@ public class InventoryController {
 
             mainController.VboxTableInfo.getChildren().add(element);
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,9 +118,11 @@ public class InventoryController {
     }
 
 
-
     public void initialize() {
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
+
+        if (inventoryToggleButton != null)
+            Application.shareLabelButton.add(inventoryToggleButton);
 
 
         if (inventoryComboBox != null) {

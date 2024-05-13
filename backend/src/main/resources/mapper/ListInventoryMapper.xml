@@ -42,11 +42,12 @@
         FROM list_inventory i,(
             SELECT id,name FROM list_stock
         ) s WHERE s.id = i.stock_id and i.date like concat(#{date},'%')
+        order by i.id
     </select>
 
 
     <select id="SelectAllDate" resultType="java.time.LocalDate">
-        SELECT DISTINCT date FROM list_inventory
+        SELECT DISTINCT date_format(date,'%Y-%m-%d') FROM list_inventory
 
     </select>
 

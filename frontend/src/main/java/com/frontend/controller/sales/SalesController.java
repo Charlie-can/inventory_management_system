@@ -31,6 +31,7 @@ import java.util.jar.JarEntry;
 
 public class SalesController {
 
+
     private MainController mainController;
 
     private ProductsController productsController;
@@ -83,10 +84,19 @@ public class SalesController {
     @FXML
     private TextField saleTime;
 
+    @FXML
+    public ToggleButton salesToggleButton;
 
     @FXML
     public void OnSalesLabelClicked() {
         try {
+
+            for (ToggleButton toggleButton : Application.shareLabelButton) {
+                if(toggleButton!=null){
+                    toggleButton.setSelected(false);
+                }
+            }
+            salesToggleButton.setSelected(true);
 
             mainController.VboxTableInfo.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/sales/TableView.fxml"));
@@ -94,6 +104,8 @@ public class SalesController {
             Parent element = fxmlLoader.load();
 
             mainController.VboxTableInfo.getChildren().add(element);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,6 +270,10 @@ public class SalesController {
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
         productsController = (ProductsController) Application.shareController.get(ProductsController.class.getSimpleName());
         Application.shareController.put(SalesController.class.getSimpleName(), this);
+
+        if (salesToggleButton != null)
+            Application.shareLabelButton.add(salesToggleButton);
+
 
 
         if (salesTableView != null) {

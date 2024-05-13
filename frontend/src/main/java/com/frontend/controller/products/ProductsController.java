@@ -42,8 +42,9 @@ public class ProductsController {
     @FXML
     public Button saveBut;
 
+
     @FXML
-    public Button productsLabelButton;
+    public ToggleButton productsToggleButton;
 
     @FXML
     private ComboBox<String> productsComboBox;
@@ -89,8 +90,16 @@ public class ProductsController {
     @FXML
     public void OnProductsLabelClicked() {
 
+
 //        MainController.loadVboxTableInfo("view/products/TableView.fxml");
         try {
+            for (ToggleButton toggleButton : Application.shareLabelButton) {
+                if(toggleButton!=null){
+                    toggleButton.setSelected(false);
+                }
+            }
+            productsToggleButton.setSelected(true);
+
 
             mainController.VboxTableInfo.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/products/TableView.fxml"));
@@ -264,6 +273,10 @@ public class ProductsController {
 
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
         Application.shareController.put(ProductsController.class.getSimpleName(), this);
+
+        if (productsToggleButton != null)
+            Application.shareLabelButton.add(productsToggleButton);
+
 
 
         if (productsComboBox != null) {

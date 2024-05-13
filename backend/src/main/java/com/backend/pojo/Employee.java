@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.Data;
 
@@ -23,9 +24,9 @@ public class Employee implements Serializable {
 
     private String  phone;
 
-    private Date hiredate;
+    private LocalDate hiredate;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     @Serial
     private static final long serialVersionUID = 1L;

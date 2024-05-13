@@ -31,6 +31,13 @@
         WHERE authority.id = #{id}
     </select>
 
+    <select id="SelectAllAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT *, employee.id e_id, employee.`name`
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+
+    </select>
+
 
     <sql id="Base_Column_List">
         id

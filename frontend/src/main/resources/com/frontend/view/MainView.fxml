@@ -15,7 +15,7 @@
             </children>
         </VBox>
 
-        <VBox fx:id="VboxTableInfo" alignment="CENTER" prefHeight="500.0" prefWidth="900.0">
+        <VBox fx:id="VboxTableInfo" alignment="CENTER" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #F4F4F4;">
          <children>
             <Label text="未打开标签栏，请在左侧选择">
                <font>

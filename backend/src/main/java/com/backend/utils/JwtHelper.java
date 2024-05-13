@@ -90,6 +90,7 @@ public class JwtHelper {
 
         } catch (Exception e) {
             //过期出现异常，返回true
+            e.printStackTrace();
             return true;
         }
     }

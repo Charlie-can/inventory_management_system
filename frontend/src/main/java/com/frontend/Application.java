@@ -6,9 +6,11 @@ import com.frontend.entity.APPConfigEntity;
 import com.frontend.entity.UserInfoReceiveData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,8 @@ public class Application extends javafx.application.Application {
     //全局FXML控制实体
     static public Map<String, Object> shareController;
 
+    static public ArrayList<ToggleButton> shareLabelButton;
+
 
     //全局登录信息
     static  public UserInfoReceiveData userInfoReceiveData;
@@ -31,6 +35,7 @@ public class Application extends javafx.application.Application {
 
     public static void main(String[] args) {
         shareController = new HashMap<>();
+        shareLabelButton = new ArrayList<>();
         getAppConfig();
         launch();
     }
