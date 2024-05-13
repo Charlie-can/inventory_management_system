@@ -44,12 +44,12 @@ public class MainController {
 
         }
 
-        if (userInfo.getInventoryperson()) {
-            loadVboxLabel("view/inventory/InventoryLabel.fxml");
-        }
-
         if (userInfo.getStorageperson()) {
             loadVboxLabel("view/storage/StorageLabel.fxml");
+        }
+
+        if (userInfo.getInventoryperson()) {
+            loadVboxLabel("view/inventory/InventoryLabel.fxml");
         }
 
         if (userInfo.getAdmin()) {

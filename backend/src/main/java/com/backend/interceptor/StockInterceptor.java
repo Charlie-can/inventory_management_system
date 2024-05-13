@@ -30,6 +30,7 @@ public class StockInterceptor implements HandlerInterceptor {
         if ((Boolean) authorityJudgment.get("return")) {
             return true;
         }
+
         response = (HttpServletResponse) authorityJudgment.get("response");
 
         return false;

@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox
-        fx:controller="com.frontend.controller.products.ProductsController"
-        alignment="CENTER" onMouseClicked="#OnProductsLabelClicked" prefHeight="50.0" prefWidth="150.0"
+        fx:controller="com.frontend.controller.storage.StorageController"
+        alignment="CENTER" onMouseClicked="#OnStorageLabelClicked" prefHeight="50.0" prefWidth="150.0"
         style="-fx-background-color: #e1e1e1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="商品存储" />

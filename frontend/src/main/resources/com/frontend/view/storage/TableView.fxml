@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.4175684277530235" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.sales.SalesController">
+<SplitPane dividerPositions="0.4175684277530235" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.storage.StorageController">
     <items>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="372.0">
             <children>
                 <HBox alignment="CENTER" prefHeight="38.0" prefWidth="871.0" spacing="5.0">
                     <children>
-                        <ComboBox fx:id="salesComboBox" prefHeight="23.0" prefWidth="93.0" />
+                        <ComboBox fx:id="storageComboBox" prefHeight="23.0" prefWidth="93.0" />
                         <TextField fx:id="userSearchField" prefHeight="23.0" prefWidth="111.0" promptText="请输入查询内容" />
                         <Button fx:id="searchBut" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="查询" />
                         <Button fx:id="resetBut" mnemonicParsing="false" onAction="#onRestButtonClicked" text="刷新" />
-                        <Button fx:id="resetBut1" mnemonicParsing="false" onAction="#onSaleButtonClicked" text="销售" />
+                        <Button fx:id="resetBut1" mnemonicParsing="false" onAction="#onStorageButtonClicked" text="存储" />
                     </children>
                     <opaqueInsets>
                         <Insets />
@@ -34,7 +34,7 @@
                         <Insets />
                     </VBox.margin>
                 </HBox>
-                <TableView fx:id="salesTableView" editable="true" prefHeight="453.0" prefWidth="359.0">
+                <TableView fx:id="storageTableView" editable="true" prefHeight="453.0" prefWidth="359.0">
                     <columns>
                         <TableColumn fx:id="checkColumn" prefWidth="40">
                             <graphic>
@@ -66,45 +66,45 @@
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="saleId" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="23.0" prefWidth="199.0" promptText="请在左侧选择数据" />
+                                <TextField fx:id="storageId" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="23.0" prefWidth="199.0" promptText="请在左侧选择数据" />
                                 <Label layoutX="263.0" layoutY="14.0" text="商品名">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="saleName" editable="false" layoutX="263.0" layoutY="40.0" prefHeight="23.0" prefWidth="199.0" promptText="请在左侧选择数据" />
-                                <Label layoutX="14.0" layoutY="82.0" text="销售数量">
+                                <TextField fx:id="storageName" editable="false" layoutX="263.0" layoutY="40.0" prefHeight="23.0" prefWidth="199.0" promptText="请在左侧选择数据" />
+                                <Label layoutX="14.0" layoutY="82.0" text="存储数量">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="saleNumber" layoutX="14.0" layoutY="109.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
-                                <Label layoutX="263.0" layoutY="82.0" text="售出价格">
+                                <TextField fx:id="storageNumber" layoutX="14.0" layoutY="109.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
+                                <Label layoutX="263.0" layoutY="82.0" text="存储价格">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="salePrice" layoutX="263.0" layoutY="109.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
-                                <Label layoutX="14.0" layoutY="153.0" text="售出日期">
+                                <TextField fx:id="storagePrice" layoutX="263.0" layoutY="109.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
+                                <Label layoutX="14.0" layoutY="153.0" text="存储日期">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <DatePicker fx:id="saleDate" layoutX="14.0" layoutY="185.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
-                                <Button fx:id="confirmButtom" layoutX="14.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#OnConfirmButtonClicked" prefHeight="23.0" prefWidth="93.0" text="确认售出">
+                                <DatePicker fx:id="storageDate" layoutX="14.0" layoutY="185.0" prefHeight="23.0" prefWidth="199.0" promptText="请输入数据" />
+                                <Button fx:id="confirmButtom" layoutX="14.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#OnConfirmButtonClicked" prefHeight="23.0" prefWidth="93.0" text="确认存储">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Button>
-                        <Label layoutX="263.0" layoutY="158.0" text="售出时间">
+                        <Label layoutX="263.0" layoutY="158.0" text="存储时间">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="saleTime" layoutX="263.0" layoutY="185.0" prefHeight="23.0" prefWidth="199.0" promptText="小时:分钟:秒数" />
+                        <TextField fx:id="storageTime" layoutX="263.0" layoutY="185.0" prefHeight="23.0" prefWidth="199.0" promptText="小时:分钟:秒数" />
                             </children>
                         </Pane>
-                        <Label layoutX="6.0" layoutY="5.0" text="商品销售">
+                        <Label layoutX="6.0" layoutY="5.0" text="商品存储">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>

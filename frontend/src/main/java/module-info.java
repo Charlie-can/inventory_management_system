@@ -8,21 +8,22 @@ module com.frontend {
     requires com.fasterxml.jackson.dataformat.yaml;
     requires org.jetbrains.annotations;
 
-    opens com.frontend to javafx.fxml;
     exports com.frontend;
     exports com.frontend.controller;
     exports com.frontend.entity;
-
-    opens com.frontend.controller to javafx.fxml;
-
-    opens com.frontend.entity to javafx.base;
     exports com.frontend.controller.products;
+    exports com.frontend.controller.storage;
     exports com.frontend.controller.sales;
     exports com.frontend.utils;
     exports com.frontend.controller.information;
 
+    opens com.frontend to javafx.fxml;
+    opens com.frontend.controller to javafx.fxml;
+    opens com.frontend.entity to javafx.base;
     opens com.frontend.controller.products to javafx.fxml;
     opens com.frontend.controller.sales to javafx.fxml;
-
+    opens com.frontend.controller.storage  to  javafx.fxml;
+    exports com.frontend.controller.inventory;
+    opens com.frontend.controller.inventory to javafx.fxml;
 
 }

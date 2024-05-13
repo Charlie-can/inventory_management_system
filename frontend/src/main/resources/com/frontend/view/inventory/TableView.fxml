@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.inventory.InventoryController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="871.0" spacing="5.0">
+         <children>
+            <ComboBox fx:id="inventoryComboBox" prefHeight="23.0" prefWidth="115.0" promptText="选择日期" />
+            <Button mnemonicParsing="false" onAction="#onGenerateButtonClicked" text="生成今日统计" />
+            <Button  mnemonicParsing="false" onAction="#onRestButtonClicked" text="刷新" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <TableView fx:id="inventoryTableView" editable="true" prefHeight="453.0" prefWidth="359.0">
+         <placeholder>
+            <Label text="请在上方选择时间" />
+         </placeholder>
+
+         <columns>
+            <TableColumn fx:id="id" editable="false" prefWidth="111.0" text="编号" />
+            <TableColumn fx:id="stockId" editable="false" prefWidth="111.0" text="商品编号" />
+            <TableColumn fx:id="stockName" editable="false" prefWidth="111.0" text="商品名称" />
+            <TableColumn fx:id="storagePrice" editable="false" prefWidth="111.0" text="进货总价" />
+            <TableColumn fx:id="salePrice" editable="false" prefWidth="111.0" text="销售总价" />
+            <TableColumn fx:id="profitPrice" editable="false" prefWidth="111.0" text="盈余利润" />
+            <TableColumn fx:id="remainingCount" editable="false" prefWidth="111.0" text="剩余库存" />
+            <TableColumn fx:id="replenishCount" editable="false" prefWidth="111.0" text="补货数量" />
+         </columns>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TableView>
+   </children>
+   <padding>
+      <Insets left="5.0" right="5.0" />
+   </padding>
+</VBox>

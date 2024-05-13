@@ -35,6 +35,33 @@ public class BackendResource<T> {
 
             String responseBody = EntityUtils.toString(response.getEntity());
 
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            return objectMapper.readValue(responseBody, classValue);
+            // 打印响应内容
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public T getRequest(String requestPath,String value, Class<T> classValue) {
+
+        try {
+            // 创建HttpClient实例
+            HttpClient httpClient = HttpClientBuilder.create().build();
+
+            // 创建GET请求
+            HttpGet request = new HttpGet(Application.appConfigEntity.getHttpClient().getHost() + requestPath);
+
+            request.addHeader("token", Application.userLoginToken);
+            // 发送请求并获取响应
+
+            HttpResponse response = httpClient.execute(request);
+
+
+            String responseBody = EntityUtils.toString(response.getEntity());
 
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -64,6 +91,7 @@ public class BackendResource<T> {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
+
             //实体类信息转Json
             String JsBody = objectMapper.writeValueAsString(tObjects);
 
@@ -82,6 +110,7 @@ public class BackendResource<T> {
                 return objectMapper.readValue(responseBody, HttpResponseData.class);
             } catch (Exception e) {
 
+                e.printStackTrace();
                 System.out.println(responseBody);
                 return null;
             }

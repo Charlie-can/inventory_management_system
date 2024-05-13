@@ -1,4 +1,4 @@
-package com.frontend.controller.sales;
+package com.frontend.controller.storage;
 
 import com.frontend.Application;
 import com.frontend.controller.MainController;
@@ -29,20 +29,19 @@ import java.util.Objects;
 import java.util.TimeZone;
 import java.util.jar.JarEntry;
 
-public class SalesController {
+public class StorageController {
 
     private MainController mainController;
 
-    private ProductsController productsController;
 
     private Number beforeToString;
 
 
     @FXML
-    private TableView<ProductsListSelected> salesTableView;
+    private TableView<ProductsListSelected> storageTableView;
 
     @FXML
-    private ComboBox<String> salesComboBox;
+    private ComboBox<String> storageComboBox;
 
     @FXML
     private TableColumn<ProductsListSelected, Number> id;
@@ -66,30 +65,30 @@ public class SalesController {
     private Integer selectColumn;
 
     @FXML
-    private TextField saleId;
+    private TextField storageId;
 
     @FXML
-    private TextField saleName;
+    private TextField storageName;
 
     @FXML
-    private TextField saleNumber;
+    private TextField storageNumber;
 
     @FXML
-    private TextField salePrice;
+    private TextField storagePrice;
 
     @FXML
-    private DatePicker saleDate;
+    private DatePicker storageDate;
 
     @FXML
-    private TextField saleTime;
+    private TextField storageTime;
 
 
     @FXML
-    public void OnSalesLabelClicked() {
+    public void OnStorageLabelClicked() {
         try {
 
             mainController.VboxTableInfo.getChildren().clear();
-            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/sales/TableView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view/storage/TableView.fxml"));
 
             Parent element = fxmlLoader.load();
 
@@ -106,7 +105,7 @@ public class SalesController {
 
         String inputText = userSearchField.getText();
 
-        String comboBoxValue = salesComboBox.getValue();
+        String comboBoxValue = storageComboBox.getValue();
 
         if (inputText.isEmpty()) {
             PopupWindow.alertWindow("未输入查询内容");
@@ -140,13 +139,13 @@ public class SalesController {
     }
 
     @FXML
-    public void onSaleButtonClicked() {
+    public void onStorageButtonClicked() {
 
         int selectCount = 0;
 
-        ObservableList<ProductsListSelected> salesTableViewItems = salesTableView.getItems();
-        for (ProductsListSelected salesTableViewItem : salesTableViewItems) {
-            if (salesTableViewItem.isSelected()) {
+        ObservableList<ProductsListSelected> storageTableViewItems = storageTableView.getItems();
+        for (ProductsListSelected storageTableViewItem : storageTableViewItems) {
+            if (storageTableViewItem.isSelected()) {
                 selectCount++;
             }
         }
@@ -154,9 +153,9 @@ public class SalesController {
             PopupWindow.alertWindow("只能同时选中一行单元,或者没有选择单元格");
             return;
         }
-        saleId.setText(String.valueOf(salesTableViewItems.get(selectColumn).getId()));
-        saleName.setText(salesTableViewItems.get(selectColumn).getName());
-        salePrice.setText(String.valueOf(salesTableViewItems.get(selectColumn).getPrice()));
+        storageId.setText(String.valueOf(storageTableViewItems.get(selectColumn).getId()));
+        storageName.setText(storageTableViewItems.get(selectColumn).getName());
+        storagePrice.setText(String.valueOf(storageTableViewItems.get(selectColumn).getPrice()));
 
         System.out.println(selectColumn);
         System.out.println(selectCount);
@@ -167,7 +166,7 @@ public class SalesController {
     public void OnConfirmButtonClicked() {
         try {
 
-            saleDate.setConverter(new StringConverter<LocalDate>() {
+            storageDate.setConverter(new StringConverter<LocalDate>() {
                 @Override
                 public String toString(LocalDate object) {
                     if (object != null) return object.toString();
@@ -199,12 +198,12 @@ public class SalesController {
 
 
         }
-        if (saleId.getText() == null ||
-                saleName.getText() == null ||
-                saleNumber.getText() == null ||
-                salePrice.getText() == null ||
-                saleDate.getValue() == null ||
-                saleTime.getText() == null
+        if (storageId.getText() == null ||
+                storageName.getText() == null ||
+                storageNumber.getText() == null ||
+                storagePrice.getText() == null ||
+                storageDate.getValue() == null ||
+                storageTime.getText() == null
         ) {
             PopupWindow.alertWindow("请输入数据");
             return;
@@ -214,36 +213,35 @@ public class SalesController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date time;
-        SaleStock saleStock = new SaleStock();
+        StorageStock storageStock = new StorageStock();
         try {
-            time = simpleDateFormat.parse(saleTime.getText());
+            time = simpleDateFormat.parse(storageTime.getText());
 
-            saleStock.setSalePrice(Double.valueOf(salePrice.getText()));
-            saleStock.setSaleTime(saleDate.getValue() + " " + simpleDateFormat.format(time));
-            saleStock.setStockId(Integer.valueOf(saleId.getText()));
-            saleStock.setSaleVolume(Integer.valueOf(saleNumber.getText()));
+            storageStock.setStoragePrice(Double.valueOf(storagePrice.getText()));
+            storageStock.setStorageTime(storageDate.getValue() + " " + simpleDateFormat.format(time));
+            storageStock.setStockId(Integer.valueOf(storageId.getText()));
+            storageStock.setStorageVolume(Integer.valueOf(storageNumber.getText()));
 
-            saleStock.setSaleEmployeeId(Application.userInfoReceiveData.getData().getUserInfo().getId());
+            storageStock.setStorageEmployeeId(Application.userInfoReceiveData.getData().getUserInfo().getId());
 
-            System.out.println(saleStock);
+            System.out.println(storageStock);
 
         } catch (ParseException e) {
-            System.out.println("解析失败：" + e.getMessage());
             PopupWindow.alertWindow("输入的时间格式有误,请重新输入");
             return;
         }
 
 
-        BackendResource<SaleStock> backendResource = new BackendResource<>();
-        HttpResponseData responseData = backendResource.postRequest("/sales/salesStock", saleStock);
+        BackendResource<StorageStock> backendResource = new BackendResource<>();
+        HttpResponseData responseData = backendResource.postRequest("/storage/storageStock", storageStock);
 
         System.out.println(responseData);
         if (!Objects.equals(responseData.getCode(), HTTPStatusEnums.OK.getCode())) {
 
-            PopupWindow.alertWindow("销售失败", responseData.getMessage());
+            PopupWindow.alertWindow("存储失败", responseData.getMessage());
             return;
         }
-        PopupWindow.informationWindow("销售成功");
+        PopupWindow.informationWindow("存储成功");
         showAllProducts();
     }
 
@@ -256,11 +254,10 @@ public class SalesController {
     public void initialize() {
 
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
-        productsController = (ProductsController) Application.shareController.get(ProductsController.class.getSimpleName());
-        Application.shareController.put(SalesController.class.getSimpleName(), this);
+        Application.shareController.put(StorageController.class.getSimpleName(), this);
 
 
-        if (salesTableView != null) {
+        if (storageTableView != null) {
             showAllProducts();
 
             Callback<TableColumn<ProductsListSelected, Boolean>, TableCell<ProductsListSelected, Boolean>> checkBoxCallBack = new Callback<>() {
@@ -291,9 +288,9 @@ public class SalesController {
             checkColumn.setCellFactory(checkBoxCallBack);
         }
 
-        if (salesComboBox != null) {
-            salesComboBox.getItems().addAll("编号", "商品名", "当前库存", "价格");
-            salesComboBox.setValue("编号");
+        if (storageComboBox != null) {
+            storageComboBox.getItems().addAll("编号", "商品名", "当前库存", "价格");
+            storageComboBox.setValue("编号");
         }
 
     }
@@ -319,6 +316,6 @@ public class SalesController {
 
         }
         ObservableList<ProductsListSelected> observableArrayList = FXCollections.observableArrayList(productsListSelectedArrayList);
-        salesTableView.setItems(observableArrayList);
+        storageTableView.setItems(observableArrayList);
     }
 }

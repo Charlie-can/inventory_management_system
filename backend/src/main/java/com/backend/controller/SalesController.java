@@ -21,7 +21,8 @@ public class SalesController {
     @PostMapping("/salesStock")
     public Result salesStock(@RequestHeader String token, @RequestBody ListSales listSales) {
 
-        System.out.println(listSales);
+
+
         Result result = listSalesService.salesStock(listSales);
 
         return result;
