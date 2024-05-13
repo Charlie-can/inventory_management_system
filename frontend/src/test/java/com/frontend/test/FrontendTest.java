@@ -3,6 +3,7 @@ package com.frontend.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.frontend.entity.*;
+import com.frontend.utils.BackendResource;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -12,6 +13,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class FrontendTest {
@@ -214,14 +217,12 @@ public class FrontendTest {
     @Test
     public void  postTest() {
 
-        ProductsList productsList = new ProductsList();
-        productsList.setName("123");
-        productsList.setVendor("12");
-        productsList.setReserveNow(123);
-        productsList.setReserveMin(123);
-        productsList.setPrice(12.0);
-
+        BackendResource<InventoryReceiveDateDate> arrayListBackendResource = new BackendResource<>();
+        ArrayList<LocalDate> inventoryDateList = arrayListBackendResource.getRequest("/inventory/getDate", InventoryReceiveDateDate.class).getData().getInventoryDateList();
+        System.out.println(inventoryDateList);
 
 
     }
+
+
 }

@@ -44,12 +44,12 @@ public class MainController {
 
         }
 
-        if (userInfo.getInventoryperson()) {
-            loadVboxLabel("view/inventory/InventoryLabel.fxml");
-        }
-
         if (userInfo.getStorageperson()) {
             loadVboxLabel("view/storage/StorageLabel.fxml");
+        }
+
+        if (userInfo.getInventoryperson()) {
+            loadVboxLabel("view/inventory/InventoryLabel.fxml");
         }
 
         if (userInfo.getAdmin()) {
@@ -77,25 +77,6 @@ public class MainController {
 
     }
 
-//    static  public void loadVboxTableInfo(String viewPath){
-//
-//        try {
-//        VboxTableInfo.getChildren().clear();
-//
-//        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(viewPath));
-//
-//        Parent element = fxmlLoader.load();
-//
-//        VboxTableInfo.getChildren().add(element);
-//
-//        }catch (Exception e){
-//
-//            e.printStackTrace();
-//        }
-//
-//
-//
-//    }
 
 
 }

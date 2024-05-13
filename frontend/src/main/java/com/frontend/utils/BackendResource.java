@@ -35,7 +35,6 @@ public class BackendResource<T> {
 
             String responseBody = EntityUtils.toString(response.getEntity());
 
-
             ObjectMapper objectMapper = new ObjectMapper();
 
             return objectMapper.readValue(responseBody, classValue);
@@ -46,6 +45,7 @@ public class BackendResource<T> {
         }
 
     }
+
 
 
     public HttpResponseData postRequest(String requestPath, T tObjects) {
@@ -64,6 +64,7 @@ public class BackendResource<T> {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
+
             //实体类信息转Json
             String JsBody = objectMapper.writeValueAsString(tObjects);
 
@@ -82,6 +83,7 @@ public class BackendResource<T> {
                 return objectMapper.readValue(responseBody, HttpResponseData.class);
             } catch (Exception e) {
 
+                e.printStackTrace();
                 System.out.println(responseBody);
                 return null;
             }

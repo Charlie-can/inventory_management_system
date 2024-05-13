@@ -1,6 +1,7 @@
 package com.backend.service;
 
 import com.backend.pojo.ListStorage;
+import com.backend.utils.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ListStorageService extends IService<ListStorage> {
 
+    Result storageStock(ListStorage listStorage);
 }

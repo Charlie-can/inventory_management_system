@@ -43,6 +43,9 @@ public class ProductsController {
     public Button saveBut;
 
     @FXML
+    public Button productsLabelButton;
+
+    @FXML
     private ComboBox<String> productsComboBox;
 
 

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox
-        fx:controller="com.frontend.controller.information.InformationController"
-        alignment="CENTER" onMouseClicked="#OnInformationLabelClicked" prefHeight="50.0" prefWidth="150.0"
-        style="-fx-background-color: #e1e1e1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER"  prefHeight="50.0" prefWidth="150.0" stylesheets="@../../style/LableStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frontend.controller.information.InformationController">
    <children>
-      <Label text="个人信息" />
+      <Button onMouseClicked="#OnInformationLabelClicked" mnemonicParsing="false" text="个人信息" />
    </children>
 </HBox>
