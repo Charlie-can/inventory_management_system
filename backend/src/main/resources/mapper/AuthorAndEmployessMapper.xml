@@ -13,11 +13,11 @@
         <result property="inventoryperson" column="inventoryperson" jdbcType="TINYINT"/>
         <result property="stockmanager" column="stockmanager" jdbcType="TINYINT"/>
 
-        <collection property="employee" javaType="com.backend.pojo.Employee">
+        <collection property="employee" ofType="com.backend.pojo.Employee">
             <id property="id" column="e_id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="sex" column="sex" jdbcType="VARCHAR"/>
-            <result property="phone" column="phone" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="hiredate" column="hiredate" jdbcType="DATE"/>
             <result property="birthday" column="birthday" jdbcType="DATE"/>
         </collection>
@@ -32,11 +32,106 @@
     </select>
 
     <select id="SelectAllAuthorityAndEmployee" resultMap="AuthorAndEmployee">
-        SELECT *, employee.id e_id, employee.`name`
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
         FROM authority
                  RIGHT JOIN employee ON authority.id = employee.id
-
     </select>
+
+
+    <select id="SelectByIdAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING employee.id = #{id}
+    </select>
+
+    <select id="SelectByNameAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING employee.name = #{name}
+    </select>
+
+    <select id="SelectBySexAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING employee.sex = #{sex}
+    </select>
+    <select id="SelectByPhoneAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING employee.phone = #{phone}
+    </select>
+
+    <select id="SelectByAdminAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING authority.admin = #{bool}
+    </select>
+
+    <select id="SelectBySalesPersonAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING authority.salesperson = #{bool}
+    </select>
+
+
+    <select id="SelectByStoragePersonAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING authority.storageperson = #{bool}
+    </select>
+
+    <select id="SelectByInventoryPersonAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING authority.inventoryperson = #{bool}
+    </select>
+
+    <select id="SelectByStockManagerPersonAuthorityAndEmployee" resultMap="AuthorAndEmployee">
+        SELECT authority.id, '***' as password, authority.admin,
+               authority.salesperson, authority.storageperson, authority.inventoryperson,authority.stockmanager,
+               employee.id AS e_id, employee.name, employee.sex, employee.phone,
+               employee.hiredate, employee.birthday
+        FROM authority
+                 RIGHT JOIN employee ON authority.id = employee.id
+        HAVING authority.stockmanager = #{bool}
+    </select>
+
+
 
 
     <sql id="Base_Column_List">
@@ -44,4 +139,6 @@
         ,password,admin,
         salesperson,storageperson,inventoryperson,name,sex,phone,hiredate,birthday
     </sql>
+
+
 </mapper>

@@ -28,6 +28,25 @@ public class Authority implements Serializable {
 
     private Boolean stockmanager;
 
+    public Authority(Integer id, String password, Boolean admin, Boolean salesperson, Boolean storageperson, Boolean inventoryperson, Boolean stockmanager) {
+        this.id = id;
+        this.password = password;
+        this.admin = admin;
+        this.salesperson = salesperson;
+        this.storageperson = storageperson;
+        this.inventoryperson = inventoryperson;
+        this.stockmanager = stockmanager;
+    }
+
+    public Authority(AuthorAndEmployess authorAndEmployess){
+     this.id =authorAndEmployess.getId();
+     this.password = authorAndEmployess.getPassword();
+     this.admin = authorAndEmployess.getAdmin();
+     this.salesperson = authorAndEmployess.getSalesperson();
+     this.storageperson = authorAndEmployess.getStorageperson();
+     this.inventoryperson = authorAndEmployess.getInventoryperson();
+     this.stockmanager = authorAndEmployess.getStockmanager();
+    }
 
     @Serial
     private static final long serialVersionUID = 1L;

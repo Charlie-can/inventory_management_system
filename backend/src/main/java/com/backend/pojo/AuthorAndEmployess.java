@@ -26,7 +26,9 @@ public class AuthorAndEmployess implements Serializable {
 
     private Employee employee;
 
+    public void setIdNull( ) {
+        this.id = null;
+    }
     private static final long serialVersionUID = 1L;
-
 
 }

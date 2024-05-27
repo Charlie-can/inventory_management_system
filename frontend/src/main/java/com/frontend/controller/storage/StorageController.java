@@ -2,7 +2,6 @@ package com.frontend.controller.storage;
 
 import com.frontend.Application;
 import com.frontend.controller.MainController;
-import com.frontend.controller.products.ProductsController;
 import com.frontend.entity.*;
 import com.frontend.model.ProductsModel;
 import com.frontend.utils.BackendResource;
@@ -15,19 +14,17 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.TimeZone;
-import java.util.jar.JarEntry;
 
 public class StorageController {
 
@@ -178,29 +175,35 @@ public class StorageController {
         try {
 
             storageDate.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
                 @Override
-                public String toString(LocalDate object) {
-                    if (object != null) return object.toString();
-                    return null;
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
 
                 @Override
                 public LocalDate fromString(String string) {
-                    if (string != null) {
+                    if (string != null && !string.isEmpty()) {
 
-                        LocalDate localDate;
+                        LocalDate parse;
                         try {
-                            localDate = LocalDate.parse(string);
+                            parse = LocalDate.parse(string, dateFormatter);
                         } catch (Exception e) {
-                            PopupWindow.alertWindow("输入的日期有误,请重新输入");
-                            return null;
-
+                            PopupWindow.alertWindow("输入的时间格式有误");
+                            parse = null;
                         }
-                        return localDate;
-                    }
-                    return null;
-                }
+                        return parse;
 
+
+                    } else {
+                        return null;
+                    }
+                }
             });
 
 
@@ -308,6 +311,27 @@ public class StorageController {
             storageComboBox.setValue("编号");
         }
 
+        if(storageDate!=null){
+            storageDate.setDayCellFactory(new Callback<>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isAfter(LocalDate.now())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #9b9b9b;"); // 设置禁用日期的样式
+                            }
+                        }
+                    };
+                }
+            });
+
+
+
+        }
     }
 
     public void showAllProducts() {

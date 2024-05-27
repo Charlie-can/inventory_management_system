@@ -116,12 +116,20 @@ public class ProductsController {
 
     @FXML
     public void onRestButtonClicked() {
+        if (editeColumn != null) {
+            PopupWindow.alertWindow("请保存上次编辑");
+            return;
+        }
         showAllProducts();
         PopupWindow.informationWindow("已刷新");
     }
 
     @FXML
     public void onSearchButtonClicked() {
+        if (editeColumn != null) {
+            PopupWindow.alertWindow("请保存上次编辑");
+            return;
+        }
 
 
         String inputText = userSearchField.getText();
@@ -162,11 +170,19 @@ public class ProductsController {
 
     @FXML
     public void onAddButtonClicked() {
+        if (editeColumn != null) {
+            PopupWindow.alertWindow("请保存上次编辑");
+            return;
+        }
         ProductsSubWindowController.PopupSubWindow();
     }
 
     @FXML
     public void onDelButtonClicked() {
+        if (editeColumn != null) {
+            PopupWindow.alertWindow("请保存上次编辑");
+            return;
+        }
 
 
         ArrayList<Integer> idList = new ArrayList<>();
@@ -438,8 +454,6 @@ public class ProductsController {
 
 
             checkColumn.setCellFactory(checkBoxCallBack);
-
-
             name.setCellFactory(stringTextFieldCallBack);
             reserveNow.setCellFactory(numberTextFieldCallBack);
             reserveMin.setCellFactory(numberTextFieldCallBack);

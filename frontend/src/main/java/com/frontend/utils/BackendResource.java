@@ -1,19 +1,21 @@
 package com.frontend.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.frontend.Application;
 import com.frontend.entity.HttpResponseData;
+import com.frontend.entity.ProductsReceiveData;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 public class BackendResource<T> {
 
@@ -34,13 +36,14 @@ public class BackendResource<T> {
 
 
             String responseBody = EntityUtils.toString(response.getEntity());
-
             ObjectMapper objectMapper = new ObjectMapper();
-
+            objectMapper.registerModule(new JavaTimeModule());
+            System.out.println(responseBody);
             return objectMapper.readValue(responseBody, classValue);
             // 打印响应内容
         } catch (Exception e) {
             e.printStackTrace();
+
             return null;
         }
 
@@ -78,7 +81,7 @@ public class BackendResource<T> {
 
             String responseBody = EntityUtils.toString(response.getEntity());
 
-
+            System.out.println(JsBody);
             try {
                 return objectMapper.readValue(responseBody, HttpResponseData.class);
             } catch (Exception e) {
@@ -98,5 +101,40 @@ public class BackendResource<T> {
 
     }
 
+     public T queryTableList(String requestPath,  Class<T> classValue,String type, String value) {
+
+
+        try {
+            // 创建HttpClient实例
+//
+            HttpClient httpClient = HttpClients.createDefault();
+
+            URIBuilder uriBuilder = new URIBuilder(Application.appConfigEntity.getHttpClient().getHost() + requestPath);
+            uriBuilder.addParameter("type", type);
+            uriBuilder.addParameter("value", value);
+
+
+            HttpGet httpGet = new HttpGet(uriBuilder.build());
+
+            httpGet.addHeader("token", Application.userLoginToken);
+
+            HttpResponse response = httpClient.execute(httpGet);
+            String responseBody = EntityUtils.toString(response.getEntity());
+
+            // 发送请求并获取响应
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            System.out.println(type);
+            System.out.println(value);
+            System.out.println(responseBody);
+            return objectMapper.readValue(responseBody.toString(),classValue);
+            // 打印响应内容
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
 
 }

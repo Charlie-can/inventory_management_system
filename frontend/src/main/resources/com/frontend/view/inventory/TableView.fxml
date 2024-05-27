@@ -16,6 +16,7 @@
             <ComboBox fx:id="inventoryComboBox" prefHeight="23.0" prefWidth="115.0" promptText="选择日期" />
             <Button mnemonicParsing="false" onAction="#onGenerateButtonClicked" text="生成今日统计" />
             <Button mnemonicParsing="false" onAction="#onRestButtonClicked" text="刷新" />
+            <Button fx:id="export" mnemonicParsing="false" onAction="#onExportButtonClicked" text="导出到表格" />
          </children>
          <opaqueInsets>
             <Insets />

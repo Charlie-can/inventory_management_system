@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -180,29 +181,35 @@ public class SalesController {
         try {
 
             saleDate.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
                 @Override
-                public String toString(LocalDate object) {
-                    if (object != null) return object.toString();
-                    return null;
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
 
                 @Override
                 public LocalDate fromString(String string) {
-                    if (string != null) {
+                    if (string != null && !string.isEmpty()) {
 
-                        LocalDate localDate;
+                        LocalDate parse;
                         try {
-                            localDate = LocalDate.parse(string);
+                            parse = LocalDate.parse(string, dateFormatter);
                         } catch (Exception e) {
-                            PopupWindow.alertWindow("输入的日期有误,请重新输入");
-                            return null;
-
+                            PopupWindow.alertWindow("输入的时间格式有误");
+                            parse = null;
                         }
-                        return localDate;
-                    }
-                    return null;
-                }
+                        return parse;
 
+
+                    } else {
+                        return null;
+                    }
+                }
             });
 
 
@@ -311,6 +318,23 @@ public class SalesController {
             salesComboBox.getItems().addAll("编号", "商品名", "当前库存", "价格");
             salesComboBox.setValue("编号");
         }
+        if(saleDate!=null)
+            saleDate.setDayCellFactory(new Callback<>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isAfter(LocalDate.now())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #9b9b9b;"); // 设置禁用日期的样式
+                            }
+                        }
+                    };
+                }
+            });
 
     }
 

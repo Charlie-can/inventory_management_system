@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.pojo.AuthorAndEmployess;
 import com.backend.pojo.Authority;
 import com.backend.service.AuthorityService;
 import com.backend.utils.Result;
@@ -37,6 +38,11 @@ public class UserController {
         Result result = authorityService.getUserInfo(token);
 
         return result;
+    }
+    @PostMapping("/updateUserInfo")
+    public Result updateUserInfo(@RequestHeader String token, @RequestBody AuthorAndEmployess authorAndEmployess) {
+
+        return authorityService.updateUserInfoSelf(token,authorAndEmployess);
     }
 
 }

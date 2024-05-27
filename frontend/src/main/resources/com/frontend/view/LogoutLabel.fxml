@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.ToggleButton?>
+<HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0"
+      stylesheets="@../style/LableStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.frontend.controller.UserLogoutController">
+    <children>
+        <ToggleButton fx:id="logoutToggleButton" onMouseClicked="#onLogoutLabelClicked" mnemonicParsing="false" stylesheets="@../style/LableStyle.css" text="退出登录"/>
+    </children>
+</HBox>

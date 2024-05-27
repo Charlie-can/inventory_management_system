@@ -41,8 +41,13 @@ public class InterceptJudgment {
         ServletOutputStream outputStream = response.getOutputStream();
 
         String token = request.getHeader("token");
+//
+//        if (token==null){
+//            returnMap.put("return", false);
+//            return returnMap;
+//        }
         //登录过期
-        if (jwtHelper.isExpiration(token)) {
+        if (token==null||jwtHelper.isExpiration(token)) {
             Result<String> stringResult = Result.build("notLogin", ResultCodeEnum.NOTLOGIN);
 
             String JSBody = objectMapper.writeValueAsString(stringResult);
@@ -85,6 +90,6 @@ public class InterceptJudgment {
         STOCKMANAGER,
         STORAGEPERSON,
         INVENTORYPERSON,
-        SALESPERSON;
+        SALESPERSON
     }
 }

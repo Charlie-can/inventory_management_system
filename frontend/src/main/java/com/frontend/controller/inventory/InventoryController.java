@@ -1,8 +1,12 @@
 package com.frontend.controller.inventory;
 
+import com.alibaba.excel.EasyExcel;
 import com.frontend.Application;
 import com.frontend.controller.MainController;
-import com.frontend.entity.*;
+import com.frontend.entity.HTTPStatusEnums;
+import com.frontend.entity.HttpResponseData;
+import com.frontend.entity.InventoryReceiveDateDate;
+import com.frontend.entity.InventoryStock;
 import com.frontend.model.InventoryModel;
 import com.frontend.utils.BackendResource;
 import com.frontend.utils.PopupWindow;
@@ -13,34 +17,26 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
-import java.time.LocalDate;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
 public class InventoryController {
 
 
-    private MainController mainController;
-
     @FXML
     public ComboBox<String> inventoryComboBox;
-
-
     @FXML
     public TableColumn id;
     @FXML
     public TableColumn stockId;
-
     @FXML
     public TableColumn generateTime;
-
     @FXML
     public TableColumn stockName;
     @FXML
@@ -53,16 +49,13 @@ public class InventoryController {
     public TableColumn remainingCount;
     @FXML
     public TableColumn replenishCount;
-
-
     @FXML
     public ToggleButton inventoryToggleButton;
     @FXML
-    private TextField userSearchField;
-
-    @FXML
     public TableView inventoryTableView;
-
+    private MainController mainController;
+    @FXML
+    private TextField userSearchField;
 
     @FXML
     public void onRestButtonClicked() {
@@ -117,6 +110,25 @@ public class InventoryController {
 
     }
 
+    @FXML
+    public void onExportButtonClicked() {
+
+        ArrayList<InventoryStock> inventoryList = null;
+
+        if (inventoryComboBox.getSelectionModel().getSelectedItem() == null) {
+            inventoryList = InventoryModel.receiveDate(inventoryComboBox.getItems().get(0)).getData().getInventoryList();
+        } else
+            inventoryList = InventoryModel.receiveDate(inventoryComboBox.getSelectionModel().getSelectedItem()).getData().getInventoryList();
+
+        System.out.println(inventoryList);
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        Stage stage = new Stage();
+        stage.setTitle("选择目录");
+        File file = directoryChooser.showDialog(stage);
+        EasyExcel.write(file+"/导出信息.xls",InventoryStock.class).sheet("导出信息").doWrite(inventoryList);
+        PopupWindow.informationWindow("导出成功","导出成功","请到"+file+"查看");
+    }
 
     public void initialize() {
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
@@ -130,14 +142,22 @@ public class InventoryController {
             BackendResource<InventoryReceiveDateDate> arrayListBackendResource = new BackendResource<>();
             ArrayList<String> inventoryDateList = arrayListBackendResource.getRequest("/inventory/getDate", InventoryReceiveDateDate.class).getData().getInventoryDateList();
             Collections.reverse(inventoryDateList);
+
+            ArrayList<InventoryStock> inventoryList = InventoryModel.receiveDate(inventoryDateList.get(0)).getData().getInventoryList();
+
+            ObservableList<InventoryStock> observableArrayList = FXCollections.observableArrayList(inventoryList);
+
+            inventoryTableView.setItems(observableArrayList);
+
             inventoryComboBox.getItems().addAll(inventoryDateList);
 
+
             inventoryComboBox.addEventHandler(ActionEvent.ACTION, event -> {
-                ArrayList<InventoryStock> inventoryList = InventoryModel.receiveDate(inventoryComboBox.getSelectionModel().getSelectedItem()).getData().getInventoryList();
+                ArrayList<InventoryStock> inventoryList1 = InventoryModel.receiveDate(inventoryComboBox.getSelectionModel().getSelectedItem()).getData().getInventoryList();
 
-                ObservableList<InventoryStock> observableArrayList = FXCollections.observableArrayList(inventoryList);
+                ObservableList<InventoryStock> observableArrayList1 = FXCollections.observableArrayList(inventoryList1);
 
-                inventoryTableView.setItems(observableArrayList);
+                inventoryTableView.setItems(observableArrayList1);
             });
 
         }

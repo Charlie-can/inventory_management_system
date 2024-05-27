@@ -1,14 +1,18 @@
 package com.backend.service;
 
+import com.backend.pojo.AuthorAndEmployess;
 import com.backend.pojo.Authority;
 import com.backend.utils.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
-* @author charlie
-* @description 针对表【authority】的数据库操作Service
-* @createDate 2024-04-23 21:40:43
-*/
+ * @author charlie
+ * @description 针对表【authority】的数据库操作Service
+ * @createDate 2024-04-23 21:40:43
+ */
 public interface AuthorityService extends IService<Authority> {
 
     Result login(Authority authority);
@@ -17,4 +21,14 @@ public interface AuthorityService extends IService<Authority> {
 
 
     Result getUserInfoList();
+
+    Result updateUserInfo(AuthorAndEmployess authorAndEmployess);
+
+    Result insertUserInfo(AuthorAndEmployess authorAndEmployess);
+
+    Result deleteUser(Map<String, List<Integer>> idList);
+
+    Result queryUserInfo(String type, String value);
+
+    Result updateUserInfoSelf(String token,AuthorAndEmployess authorAndEmployess);
 }

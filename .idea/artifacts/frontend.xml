@@ -1,0 +1,59 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="frontend">
+    <output-path>$PROJECT_DIR$/out/artifacts/frontend</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.frontend.Application" />
+        <option name="convertCss2Bin" value="true" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="进销存管理系统" />
+        <option name="vendor" value="charlie_can" />
+        <option name="version" value="1.0.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="frontend.jar">
+        <element id="module-output" name="frontend" />
+      </element>
+      <element id="library" level="project" name="Maven: org.yaml:snakeyaml:2.2" />
+      <element id="library" level="project" name="Maven: com.alibaba:easyexcel-core:3.3.4" />
+      <element id="library" level="project" name="Maven: com.alibaba:easyexcel:3.3.4" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.16.1" />
+      <element id="library" level="project" name="Maven: com.alibaba:easyexcel-support:3.3.4" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.16.1" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1" />
+      <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
+      <element id="library" level="project" name="Maven: com.zaxxer:SparseBitSet:1.2" />
+      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.11.0" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.19" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-csv:1.8" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-math3:3.6.1" />
+      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" />
+      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi:4.1.2" />
+      <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:3.1.0" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:24.1.0" />
+      <element id="library" level="project" name="Maven: org.ehcache:ehcache:3.9.9" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:21" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:21" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:21" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:21" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:21" />
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:4.1.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:21" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:4.1.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:21" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:21" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.32" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.16.1" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.7.32" />
+      <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.26" />
+    </root>
+  </artifact>
+</component>

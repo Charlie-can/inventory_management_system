@@ -32,28 +32,29 @@
         </HBox>
         <TableView fx:id="userManagementTableView" editable="true" prefHeight="453.0" prefWidth="880.0">
             <columns>
-                <TableColumn fx:id="checkColumn" prefWidth="40">
+                <TableColumn fx:id="checkColumn" prefWidth="48.57147514820099">
                     <graphic>
                         <CheckBox fx:id="checkColumnCheckBox" mnemonicParsing="false" onAction="#onCheckColumnCheckBoxClicked" />
                     </graphic>
                 </TableColumn>
-                <TableColumn fx:id="id" editable="false" prefWidth="60.0" text="用户编号" />
-                <TableColumn editable="false" prefWidth="340.00001525878906" text="个人信息">
+                <TableColumn fx:id="employee" editable="false" prefWidth="530.2856330871582" text="个人信息">
                     <columns>
-                        <TableColumn fx:id="name" editable="false" prefWidth="81.71421813964844" text="用户名" />
-                        <TableColumn fx:id="sex" editable="false" prefWidth="37.14288330078125" text="性别" />
-                        <TableColumn fx:id="phone" editable="false" prefWidth="145.0" text="手机号" />
-                        <TableColumn fx:id="birthday" editable="false" prefWidth="145.0" text="生日" />
-                        <TableColumn fx:id="hiredate" editable="false" prefWidth="145.0" text="雇佣日" />
+                      <TableColumn fx:id="id" prefWidth="55.428585052490234" text="用户编号" />
+                        <TableColumn fx:id="name" prefWidth="81.71421813964844" text="用户名" />
+                  <TableColumn fx:id="password" prefWidth="37.71429443359375" text="密码" />
+                        <TableColumn fx:id="sex" prefWidth="59.99993896484375" text="性别" />
+                        <TableColumn fx:id="phone" prefWidth="105.71429443359375" text="手机号" />
+                        <TableColumn fx:id="birthday" prefWidth="89.1429443359375" text="生日" />
+                        <TableColumn fx:id="hiredate" prefWidth="92.57150268554688" text="雇佣日" />
                     </columns>
                 </TableColumn>
-                <TableColumn editable="true" prefWidth="300.5714111328125" text="权限设置">
+                <TableColumn fx:id="authority" editable="true" prefWidth="309.1429443359375" text="权限设置">
                     <columns>
-                        <TableColumn fx:id="admin" editable="false" prefWidth="55.0" text="管理员" />
-                        <TableColumn fx:id="stockmanager" editable="false" prefWidth="55.0" text="库存管理" />
-                        <TableColumn fx:id="salesperson" editable="false" prefWidth="55.0" text="商品销售" />
-                        <TableColumn fx:id="storageperson" editable="false" prefWidth="55.0" text="商品存储" />
-                        <TableColumn fx:id="inventoryperson" editable="false" prefWidth="55.0" text="商品盘查" />
+                        <TableColumn fx:id="admin" prefWidth="60.5" text="管理员" />
+                        <TableColumn fx:id="stockmanager" prefWidth="60.5" text="库存管理" />
+                        <TableColumn fx:id="salesperson" prefWidth="60.5" text="商品销售" />
+                        <TableColumn fx:id="storageperson" prefWidth="60.5" text="商品存储" />
+                        <TableColumn fx:id="inventoryperson" prefWidth="60.5" text="商品盘查" />
                     </columns>
                 </TableColumn>
             </columns>

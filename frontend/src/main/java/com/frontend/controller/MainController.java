@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -15,10 +16,13 @@ public class MainController {
 
 
     @FXML
-    public  VBox VboxTableInfo;
+    public VBox VboxTableInfo;
+
 
     @FXML
     private VBox VboxLabel;
+
+
 
 
     public void initialize() {
@@ -58,9 +62,10 @@ public class MainController {
 
         loadVboxLabel("view/information/PersonalInformationLabel.fxml");
 
+        loadVboxLabel("view/LogoutLabel.fxml");
+
 
     }
-
 
 
     private void loadVboxLabel(String labelViewPath) {
@@ -76,7 +81,6 @@ public class MainController {
         }
 
     }
-
 
 
 }

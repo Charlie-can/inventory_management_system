@@ -32,7 +32,6 @@ public class UserManagementInterceptor implements HandlerInterceptor {
             return true;
         }
         response = (HttpServletResponse) authorityJudgment.get("response");
-
         return false;
 
 

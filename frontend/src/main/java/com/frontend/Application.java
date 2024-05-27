@@ -7,9 +7,11 @@ import com.frontend.entity.UserInfoReceiveData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,12 @@ public class Application extends javafx.application.Application {
         mainStage.setResizable(false);
         changeView("view/LoginView.fxml");
         mainStage.setTitle("进销存管理系统");
+        mainStage.getIcons().add(new Image(Application.class.getResource("img/logo.png").toString()));
+//        mainStage.getIcons().add(new Image("file:/E:/code/idea/inventory_management_system/frontend/target/classes/com/frontend/img/logo.png"));
+
+//        System.out.println(this.getClass().getResourceAsStream("img/logo.png"));
+
+//        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/logo.png")));
 
     }
 
@@ -69,7 +77,7 @@ public class Application extends javafx.application.Application {
     private static void  getAppConfig(){
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
-            appConfigEntity = mapper.readValue(new File("./frontend/src/main/resources/com/frontend/config/application.yaml"), APPConfigEntity.class);
+            appConfigEntity = mapper.readValue(Application.class.getResource("config/application.yaml"), APPConfigEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

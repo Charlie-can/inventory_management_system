@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -103,6 +104,8 @@ public class ProductsSubWindowController {
     static void PopupSubWindow() {
 
         productsSubWindowStage = new Stage();
+
+        productsSubWindowStage.getIcons().add(new Image(Application.class.getResource("img/logo.png").toString()));
 
         Scene productsSubScene;
         try {

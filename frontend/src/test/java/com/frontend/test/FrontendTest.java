@@ -1,19 +1,16 @@
 package com.frontend.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.frontend.entity.*;
-import com.frontend.utils.BackendResource;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -21,7 +18,7 @@ public class FrontendTest {
 
 
 //        @Test
-    public void GetTest() throws Exception {
+    public void GetTest()  {
 
         try {
             // 创建HttpClient实例
@@ -51,56 +48,56 @@ public class FrontendTest {
 
 
     //@Test
-    public void PostTest() {
-
-        try {
-            // 创建HttpClient实例
-            HttpClient httpClient = HttpClientBuilder.create().build();
-
-            // 创建POST请求
-            HttpPost request = new HttpPost("http://127.0.0.1:8080/user/login");
-
-            // 添加请求头
-            request.addHeader("Content-Type", "application/json");
-
-            // 添加请求体（JSON数据）
-//        String jsonBody = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
-
-            LoginTest loginTest = new LoginTest();
-
-            loginTest.setId(1001);
-            loginTest.setPassword("123456");
-
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            String JsBody = objectMapper.writeValueAsString(loginTest);
-
-
-            request.setEntity(new StringEntity(JsBody));
-
-            // 发送请求并获取响应
-            HttpResponse response = httpClient.execute(request);
-
-            // 读取响应内容
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line;
-            StringBuilder result = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-
-            LoginDataTest loginDataTest = objectMapper.readValue(result.toString(), LoginDataTest.class);
-
-
-            // 打印响应内容
-            System.out.println("Response: " + result.toString());
-            System.out.println("loginTest: " + loginDataTest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
+//    public void PostTest() {
+//
+//        try {
+//            // 创建HttpClient实例
+//            HttpClient httpClient = HttpClientBuilder.create().build();
+//
+//            // 创建POST请求
+//            HttpPost request = new HttpPost("http://127.0.0.1:8080/user/login");
+//
+//            // 添加请求头
+//            request.addHeader("Content-Type", "application/json");
+//
+//            // 添加请求体（JSON数据）
+////        String jsonBody = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
+//
+//            LoginTest loginTest = new LoginTest();
+//
+//            loginTest.setId(1001);
+//            loginTest.setPassword("123456");
+//
+//            ObjectMapper objectMapper = new ObjectMapper();
+//
+//            String JsBody = objectMapper.writeValueAsString(loginTest);
+//
+//
+//            request.setEntity(new StringEntity(JsBody));
+//
+//            // 发送请求并获取响应
+//            HttpResponse response = httpClient.execute(request);
+//
+//            // 读取响应内容
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//            String line;
+//            StringBuilder result = new StringBuilder();
+//            while ((line = reader.readLine()) != null) {
+//                result.append(line);
+//            }
+//
+//            LoginDataTest loginDataTest = objectMapper.readValue(result.toString(), LoginDataTest.class);
+//
+//
+//            // 打印响应内容
+//            System.out.println("Response: " + result.toString());
+//            System.out.println("loginTest: " + loginDataTest);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
 
     //    @Test
     public void EnumsTest() {
@@ -156,20 +153,20 @@ public class FrontendTest {
 
     }
 
-    public void YamlReader() {
-        try {
-            // 创建ObjectMapper对象
-            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            APPConfigEntity appConfigEntity = mapper.readValue(new File("./src/test/resources/com/frontend/config/application.yaml"), APPConfigEntity.class);
-            System.out.println(appConfigEntity);
-            System.out.println(appConfigEntity.getHttpClient().getHost());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
+//    public void YamlReader() {
+//        try {
+//            // 创建ObjectMapper对象
+//            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+//            APPConfigEntity appConfigEntity = mapper.readValue(new File("./src/test/resources/com/frontend/config/application.yaml"), APPConfigEntity.class);
+//            System.out.println(appConfigEntity);
+//            System.out.println(appConfigEntity.getHttpClient().getHost());
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
 
  public void getClassTest(){
 
@@ -214,13 +211,12 @@ public class FrontendTest {
     }
 
 
-    @Test
-    public void  postTest() {
+//    @Test
+    public void  dateTest() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        BackendResource<InventoryReceiveDateDate> arrayListBackendResource = new BackendResource<>();
-        ArrayList<LocalDate> inventoryDateList = arrayListBackendResource.getRequest("/inventory/getDate", InventoryReceiveDateDate.class).getData().getInventoryDateList();
-        System.out.println(inventoryDateList);
-
+        LocalDate parse = LocalDate.parse("2024-04-09", dateTimeFormatter);
+        System.out.println(parse);
 
     }
 
