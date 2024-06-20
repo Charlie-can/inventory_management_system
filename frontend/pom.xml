@@ -216,7 +216,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.fendo.analysis.AnalysisStart</mainClass>
+                            <mainClass>com.frontend.AppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

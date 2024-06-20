@@ -15,32 +15,32 @@ import java.util.List;
 @SpringBootTest
 public class BackendTest {
 
+//
+//    @Resource
+//    private AuthorityMapper authorityMapper;
+//
+//    @Resource
+//    private AuthorityAndEmployeeMapper authorityAndEmployeeMapper;
+//
+////    @Test
+//    public void test1() {
+//
+//        List<Authority> authorities =
+//                authorityMapper.selectList(null);
+//        System.out.println(authorities);
+//
+//    }
+//
+//
+//    public  void  test2(){
+//        AuthorAndEmployess authorAndEmployess =authorityAndEmployeeMapper.SelectIdInAuthorityAndEmployee(1001);
+//
+//        System.out.println(authorAndEmployess);
+//
+//
+//    }
 
-    @Resource
-    private AuthorityMapper authorityMapper;
-
-    @Resource
-    private AuthorityAndEmployeeMapper authorityAndEmployeeMapper;
-
-//    @Test
-    public void test1() {
-
-        List<Authority> authorities =
-                authorityMapper.selectList(null);
-        System.out.println(authorities);
-
-    }
-
-
-    @Test
-    public  void  test2(){
-        AuthorAndEmployess authorAndEmployess =authorityAndEmployeeMapper.SelectIdInAuthorityAndEmployee(1001);
-
-        System.out.println(authorAndEmployess);
-
-
-    }
-
+    
 
 
 }

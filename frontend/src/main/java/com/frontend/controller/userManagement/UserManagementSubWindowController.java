@@ -186,9 +186,7 @@ public class UserManagementSubWindowController {
                         parse = LocalDate.parse(string, dateFormatter);
                     } catch (Exception e) {
                         PopupWindow.alertWindow("输入的时间格式有误","输入的时间格式有误");
-
                         return null;
-
                     }
                     return parse;
 

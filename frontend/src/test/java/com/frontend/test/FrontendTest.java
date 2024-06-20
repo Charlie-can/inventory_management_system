@@ -213,10 +213,7 @@ public class FrontendTest {
 
 //    @Test
     public void  dateTest() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        LocalDate parse = LocalDate.parse("2024-04-09", dateTimeFormatter);
-        System.out.println(parse);
 
     }
 

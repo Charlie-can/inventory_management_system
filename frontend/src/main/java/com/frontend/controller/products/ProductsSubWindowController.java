@@ -58,6 +58,19 @@ public class ProductsSubWindowController {
             return;
         }
 
+        if(Integer.parseInt(productsPrice.getText())<=0){
+            PopupWindow.alertWindow("售价不能小于等于0");
+            return;
+
+        }
+
+        if(Integer.parseInt(productsReserveMin.getText())<=0||Integer.parseInt(productsReserveNow.getText())<0){
+            PopupWindow.alertWindow("库存不能小于0");
+            return;
+
+        }
+
+
         try {
             productsList.setName(productsName.getText());
             productsList.setPrice(Double.parseDouble(productsPrice.getText()));

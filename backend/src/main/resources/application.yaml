@@ -9,9 +9,10 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      url: jdbc:mysql:///inventory_management_system
+      url: jdbc:mysql://127.0.0.1:3306/inventory_management_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#      url: jdbc:mysql://150.158.28.44:3306/inventory_management_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: root
+      password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis-plus的配置

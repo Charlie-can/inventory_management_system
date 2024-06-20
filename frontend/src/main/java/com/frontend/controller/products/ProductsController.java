@@ -6,8 +6,6 @@ import com.frontend.entity.*;
 import com.frontend.model.ProductsModel;
 import com.frontend.utils.BackendResource;
 import com.frontend.utils.PopupWindow;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -94,7 +92,7 @@ public class ProductsController {
 //        MainController.loadVboxTableInfo("view/products/TableView.fxml");
         try {
             for (ToggleButton toggleButton : Application.shareLabelButton) {
-                if(toggleButton!=null){
+                if (toggleButton != null) {
                     toggleButton.setSelected(false);
                 }
             }
@@ -249,7 +247,7 @@ public class ProductsController {
     }
 
     @FXML
-    private void onUpdateButtonClicked() {
+    public void onUpdateButtonClicked() {
 
 
         ObservableList<ProductsListSelected> productsTableViewItems = productsTableView.getItems();
@@ -290,9 +288,7 @@ public class ProductsController {
         mainController = (MainController) Application.shareController.get(MainController.class.getSimpleName());
         Application.shareController.put(ProductsController.class.getSimpleName(), this);
 
-        if (productsToggleButton != null)
-            Application.shareLabelButton.add(productsToggleButton);
-
+        if (productsToggleButton != null) Application.shareLabelButton.add(productsToggleButton);
 
 
         if (productsComboBox != null) {
@@ -314,6 +310,10 @@ public class ProductsController {
                 @Override
                 public Long fromString(String string) {
                     try {
+                        if(Long.parseLong(string)<0){
+                            PopupWindow.alertWindow("库存不能小于0");
+                            return Long.parseLong(beforeToString.toString());
+                        }else
                         return Long.parseLong(string);
 
                     } catch (Exception formatException) {
@@ -333,7 +333,10 @@ public class ProductsController {
                 @Override
                 public Double fromString(String string) {
                     try {
-                        return Double.parseDouble(string);
+                        if (Double.parseDouble(string) <= 0) {
+                            PopupWindow.alertWindow("价格不能小于0");
+                            return beforeToString.doubleValue();
+                        } else return Double.parseDouble(string);
 
                     } catch (Exception formatException) {
                         PopupWindow.alertWindow("类型输入错误，只能输入数值型");
